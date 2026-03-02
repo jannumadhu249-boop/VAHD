@@ -1,0 +1,198 @@
+/* Dashboard Custom Styles */
+
+.page-content {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  padding: 24px 0;
+}
+
+/* Card Enhancements */
+.card-stats {
+  transition: all 0.3s ease;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.card-stats:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+.card-animate {
+  animation: fadeInUp 0.5s ease-in-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Typography */
+.fs-11 {
+  font-size: 0.6875rem;
+}
+
+.fs-12 {
+  font-size: 0.75rem;
+}
+
+.fs-16 {
+  font-size: 1rem;
+}
+
+.fs-18 {
+  font-size: 1.125rem;
+}
+
+.fs-20 {
+  font-size: 1.25rem;
+}
+
+.fs-32 {
+  font-size: 2rem;
+}
+
+.fs-10 {
+  font-size: 0.625rem;
+}
+
+/* Icon Styles */
+.icon-big {
+  transition: all 0.3s ease;
+}
+
+.card-stats:hover .icon-big {
+  transform: scale(1.1);
+}
+
+/* Avatar Sizes */
+.avatar-xs {
+  width: 2rem;
+  height: 2rem;
+}
+
+.avatar-sm {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .fs-32 {
+    font-size: 1.5rem;
+  }
+  
+  .icon-big {
+    width: 48px !important;
+    height: 48px !important;
+  }
+  
+  .icon-big i {
+    font-size: 24px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .page-content {
+    padding: 16px 0;
+  }
+  
+  .mb-3 {
+    margin-bottom: 12px !important;
+  }
+}
+
+/* Card Hover Effects */
+.card {
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Chart Container */
+.echarts-for-react {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Loading Spinner */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Background Subtle Colors */
+.bg-primary-subtle {
+  background-color: rgba(59, 93, 231, 0.1) !important;
+}
+
+.bg-success-subtle {
+  background-color: rgba(69, 203, 133, 0.1) !important;
+}
+
+.bg-info-subtle {
+  background-color: rgba(52, 152, 219, 0.1) !important;
+}
+
+.bg-warning-subtle {
+  background-color: rgba(238, 185, 2, 0.1) !important;
+}
+
+.bg-danger-subtle {
+  background-color: rgba(255, 113, 91, 0.1) !important;
+}
+
+.bg-secondary-subtle {
+  background-color: rgba(108, 117, 125, 0.1) !important;
+}
+
+/* Card Header Styling */
+.card-header {
+  padding: 1rem 1.25rem;
+}
+
+.card-header h5 {
+  color: #495057;
+  font-size: 0.9375rem;
+}
+
+/* Smooth Scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Card Body Spacing */
+.card-body {
+  padding: 1.25rem;
+}
+
+/* Border Utilities */
+.border-0 {
+  border: 0 !important;
+}
+
+/* Shadow Utilities */
+.shadow-sm {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+/* Text Utilities */
+.text-truncate-2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}

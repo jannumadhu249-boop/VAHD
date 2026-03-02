@@ -1,0 +1,370 @@
+//
+// Forms.scss
+//
+
+[type="tel"],
+[type="url"],
+[type="email"],
+[type="number"] {
+  &::placeholder {
+    text-align: left
+      /*rtl: right*/
+    ;
+  }
+}
+
+.form-check {
+  position: relative;
+  text-align: left
+    /*rtl: right*/
+  ;
+}
+
+// checkbox input right
+
+.form-check-right {
+  padding-left: 0;
+  display: inline-block;
+  padding-right: $form-check-padding-start;
+
+  .form-check-input {
+    float: right;
+    margin-left: 0;
+    margin-right: $form-check-padding-start * -1;
+  }
+
+  .form-check-label {
+    display: block;
+  }
+}
+
+// checkbox
+
+.form-checkbox-outline {
+  .form-check-input {
+    border-width: 2px;
+    background-color: $card-bg;
+
+    &:active {
+      filter: none;
+    }
+
+    &:checked {
+      background-color: $card-bg !important;
+
+      &[type="checkbox"] {
+        background-image: none;
+      }
+
+      &:after {
+        position: absolute;
+        content: "\F012C";
+        font-family: "Material Design Icons";
+        top: -4px !important;
+        left: 1px;
+        /*rtl: -4px */
+        font-size: 16px;
+        color: $dark;
+      }
+    }
+  }
+}
+
+// radio
+
+.form-radio-outline {
+  .form-check-input {
+    background-color: $card-bg;
+    position: relative;
+
+    &:active {
+      filter: none;
+    }
+
+    &:checked {
+      background-color: $card-bg !important;
+
+      &[type="checkbox"] {
+        background-image: none;
+      }
+
+      &:after {
+        position: absolute;
+        content: "";
+        top: 3px !important;
+        left: 3px;
+        right: 3px;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+      }
+    }
+  }
+}
+
+// checkbox color
+
+@each $color, $value in $theme-colors {
+  .form-check-#{$color} {
+    .form-check-input {
+      &:checked {
+        background-color: $value;
+        border-color: $value;
+      }
+    }
+  }
+
+  .form-radio-#{$color} {
+    .form-check-input {
+      &:checked {
+        border-color: $value;
+        background-color: $value;
+
+        &:after {
+          background-color: $value;
+        }
+      }
+    }
+  }
+}
+
+.form-check-label {
+  cursor: pointer;
+  margin-bottom: 0;
+}
+
+// Switch sizes
+
+.form-switch-md {
+  padding-left: 2.5rem;
+  min-height: 24px;
+  line-height: 24px;
+
+  .form-check-input {
+    width: 40px;
+    height: 20px;
+    left: -0.5rem;
+    position: relative;
+  }
+
+  .form-check-label {
+    vertical-align: middle;
+  }
+}
+
+.form-switch-lg {
+  padding-left: 2.75rem;
+  min-height: 28px;
+  line-height: 28px;
+
+  .form-check-input {
+    width: 48px;
+    height: 24px;
+    left: -0.75rem;
+    position: relative;
+  }
+}
+
+.input-group-text {
+  margin-bottom: 0px;
+}
+
+// transfer list
+
+.rdl-filter,
+.rdl-control {
+  background-color: $input-bg;
+  border-color: $input-border-color;
+  color: $input-color;
+}
+
+.react-dual-listbox {
+  button {
+    color: $dark;
+    border-color: $border-color;
+    background-color: $light;
+  }
+
+  input,
+  select {
+    &:disabled {
+      background-color: $input-disabled-bg;
+    }
+  }
+}
+
+.rdl-move {
+
+  &:hover,
+  &:active,
+  &:focus {
+    &:not(:disabled) {
+      background-color: darken($light, 2%);
+      border-color: $border-color;
+    }
+  }
+}
+
+.css-1uccc91-singleValue {
+  color: $input-color !important;
+}
+
+.react-kanban-column {
+  background-color: $light !important;
+}
+
+
+.icon-tab li:first-child .nav-link {
+  border-top-left-radius: 21px;
+  border-bottom-left-radius: 21px;
+}
+
+.icon-tab li:last-child .nav-link {
+  border-top-right-radius: 21px;
+  border-bottom-right-radius: 21px;
+}
+
+// Form dropdown 
+.input-group {
+  .form-select {
+    background-position: right 0.75rem center !important;
+  }
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////
+
+:root {
+  --primary: #2563eb;
+  --primary-light: rgba(37, 99, 235, 0.12);
+  --border: #d0d7e2;
+  --text: #545a6d;
+  --text-light: #64748b;
+  --radius: 8px;
+  --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base Control (Input, Select, React-Select) */
+.form-control,
+.form-select,
+.react-select__control {
+  border: 1.4px solid var(--border);
+  border-radius: var(--radius);
+  padding: 7px 12px;
+  height: 34px;
+  font-size: 14px;
+  font-family: Inter, system-ui, sans-serif;
+  background: #fff;
+  color: var(--text);
+  transition: var(--transition);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Hover */
+.form-control:hover,
+.form-select:hover,
+.react-select__control:hover {
+  border-color: #b8c2d3;
+}
+
+/* Focus Effect — Soft Glow Border */
+.form-control:focus,
+.form-select:focus,
+.react-select__control--is-focused {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+  outline: none;
+  background-color: #fff;
+  transform: translateY(-1px);
+}
+
+/* Compact React Select */
+.react-select__control {
+  min-height: 34px !important;
+}
+
+.react-select__value-container {
+  padding: 0 8px !important;
+}
+
+.react-select__single-value {
+  font-size: 14px !important;
+}
+
+.react-select__placeholder {
+  font-size: 14px !important;
+  color: var(--text-light) !important;
+}
+
+.react-select__option {
+  padding: 8px 12px !important;
+  font-size: 14px !important;
+}
+
+/* Select Arrow – Clean Minimal */
+select.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' stroke='%232563eb' stroke-width='2' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 8l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 18px;
+  padding-right: 34px;
+}
+
+/* Labels */
+.form-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+/* Required Indicator */
+.form-label.required::after {
+  content: " *";
+  color: #ef4444;
+}
+
+/* Error */
+.form-control.is-invalid,
+.form-select.is-invalid {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+}
+
+/* Success */
+.form-control.is-valid,
+.form-select.is-valid {
+  border-color: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12);
+}
+
+/* Placeholder */
+.form-control::placeholder {
+  color: var(--text-light);
+  opacity: 0.7;
+}
+
+/* Group Spacing */
+.form-group {
+  margin-bottom: 16px;
+}
+
+/* Textarea */
+textarea.form-control {
+  height: auto;
+  padding: 10px 12px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+/* Disabled */
+.form-control:disabled,
+.form-select:disabled {
+  background-color: #f1f5f9;
+  color: #94a3b8;
+  border-color: #e2e8f0;
+}
+

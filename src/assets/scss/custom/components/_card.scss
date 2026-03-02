@@ -1,0 +1,55 @@
+// _card.scss
+
+.card {
+  box-shadow: 0 .75rem 1.5rem #12263f08;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background: #ffff;
+}
+
+
+.card-drop {
+  color: $body-color;
+}
+
+.card-title {
+  font-size: 15px;
+  margin: 0 0 7px 0;
+  font-weight: $font-weight-semibold;
+}
+
+.card-title-desc {
+  color: $card-title-desc;
+  margin-bottom: 24px;
+}
+
+
+
+
+.shop-nav .nav-link.active {
+  font-weight: 700;
+  color: var(--theme-color);
+  background: var(--theme-hover-bg);
+  border-bottom: 2px solid var(--theme-color);
+}
+
+.shop-nav .nav-link {
+  color: #677788;
+  border-bottom: 2px solid transparent;
+  font-size: 0.875rem;
+  padding: 0.75rem 0.85rem;
+  background: #eee;
+  border-radius: 6px;
+  font-weight: 500;
+  color: #000;
+
+}
+
+#linkes {
+  border: "1px solid #d7dae0"
+}
+
+
+#linkes :hover {
+  border: "1px solid #d7dae0"
+}
