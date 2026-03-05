@@ -57,7 +57,7 @@ function EmployeeAttendanceReport() {
   const [totalCount, setTotalCount] = useState(0)
 
   const [filters, setFilters] = useState({
-    workingPlaceId: "",
+    workingPlace: "",
     fromDate: "",
     toDate: "",
     search: "",
@@ -92,7 +92,7 @@ function EmployeeAttendanceReport() {
       const token = TokenData
       const payload = {
         page,
-        workingPlaceId: filterParams.workingPlaceId,
+        workingPlace: filterParams.workingPlace,
         fromDate: filterParams.fromDate,
         toDate: filterParams.toDate,
         search: filterParams.search,
@@ -131,7 +131,7 @@ function EmployeeAttendanceReport() {
 
   const handleReset = () => {
     const resetFilters = {
-      workingPlaceId: "",
+      workingPlace: "",
       fromDate: "",
       toDate: "",
       search: "",
@@ -247,13 +247,13 @@ function EmployeeAttendanceReport() {
                         <Label>Working Place</Label>
                         <Input
                           type="select"
-                          name="workingPlaceId"
-                          value={filters.workingPlaceId}
+                          name="workingPlace"
+                          value={filters.workingPlace}
                           onChange={handleFilterChange}
                         >
                           <option value="">All Working Places</option>
                           {placeOfWorking.map(place => (
-                            <option key={place.id} value={place.id}>
+                            <option key={place._id} value={place._id}>
                               {place.name}
                             </option>
                           ))}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react"
 import Breadcrumbs from "../../components/Common/Breadcrumb"
+import Select from "react-select"
 import { Row, Col, Card, CardBody, Table, Label, Button, Input, Spinner } from "reactstrap"
 import { CSVLink } from "react-csv"
 import jsPDF from "jspdf"
@@ -20,7 +21,15 @@ const DistrictWiseAttendanceCount = () => {
     const [loading, setLoading] = useState(false)
     const [filters, setFilters] = useState({
         date: new Date().toISOString().split('T')[0],
+        time: "",
     })
+
+    const timeOptions = [
+        { value:"09:00 AM - 10:00 AM" , label: "09:00 AM - 10:00 AM"},
+        { value:"10:00 AM - 11:00 AM" , label: "10:00 AM - 11:00 AM"},
+        { value:"After 11:00 AM" , label: "After 11:00 AM"},
+        
+    ]
 
     const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' })
 
@@ -64,8 +73,10 @@ const DistrictWiseAttendanceCount = () => {
             return
         }
         setLoading(true)
+
         const payload = {
             Date: filters.date,
+            timeSlot:filters.time?.value || "",
         }
 
         axios
@@ -95,6 +106,7 @@ const DistrictWiseAttendanceCount = () => {
 
     const handleReset = () => {
         setFilters({ date: new Date().toISOString().split('T')[0] })
+        setFilters({timeSlot:''})
         // Optional: clear data or refetch on reset
     }
 
@@ -217,7 +229,7 @@ const DistrictWiseAttendanceCount = () => {
         headers: [
             { label: "Sl. No.", key: "id" },
             { label: "District Name", key: "district" },
-            { label: "Registered", key: "registered" },
+            // { label: "Registered", key: "registered" },
             { label: "Present", key: "present" },
         ],
     }
@@ -244,6 +256,18 @@ const DistrictWiseAttendanceCount = () => {
                                                     value={filters.date}
                                                     onChange={e => setFilters(prev => ({ ...prev, date: e.target.value }))}
                                                     style={{ height: "34px", fontSize: "13px" }}
+                                                />
+                                            </div>
+                                            {/* Time */}
+                                            <div style={{ minWidth: "150px" }}>
+                                                <Label style={styles.filterLabel}>Time</Label>
+                                                <Select
+                                                    options={timeOptions}
+                                                    value={filters.time}
+                                                    onChange={opt => setFilters(prev => ({ ...prev, time: opt || null }))}
+                                                    placeholder="Select Time"
+                                                    isClearable
+                                                    style={{ control: base => ({ ...base, minHeight: "34px", fontSize: "13px" }) }}
                                                 />
                                             </div>
                                             {/* Buttons */}
@@ -315,7 +339,7 @@ const DistrictWiseAttendanceCount = () => {
                                                         <tr style={{ cursor: "pointer" }}>
                                                             <th style={{ width: "10%" }} onClick={() => requestSort('id')}>Sl. No. {getSortIcon('id')}</th>
                                                             <th style={{ textAlign: "left" }} onClick={() => requestSort('district')}>District Name {getSortIcon('district')}</th>
-                                                            <th style={{ width: "20%" }} onClick={() => requestSort('registered')}>Registered {getSortIcon('registered')}</th>
+                                                            {/* <th style={{ width: "20%" }} onClick={() => requestSort('registered')}>Registered {getSortIcon('registered')}</th> */}
                                                             <th style={{ width: "20%" }} onClick={() => requestSort('present')}>Present {getSortIcon('present')}</th>
                                                         </tr>
                                                     </thead>
@@ -326,7 +350,7 @@ const DistrictWiseAttendanceCount = () => {
                                                                     <tr key={index}>
                                                                         <td>{index + 1}</td>
                                                                         <td style={{ textAlign: "left" }}>{row.district}</td>
-                                                                        <td>{row.registered}</td>
+                                                                        {/* <td>{row.registered}</td> */}
                                                                         <td>
                                                                             <span className={`badge ${row.present > 0 ? "bg-success" : "bg-danger"}`}>
                                                                                 {row.present}
@@ -338,7 +362,7 @@ const DistrictWiseAttendanceCount = () => {
                                                                 <tr style={{ fontWeight: "bold", backgroundColor: "#f8f9fa" }}>
                                                                     <td></td>
                                                                     <td style={{ textAlign: "left" }}>GRAND TOTAL</td>
-                                                                    <td>{totalRegistered}</td>
+                                                                    {/* <td>{totalRegistered}</td> */}
                                                                     <td>{totalPresent}</td>
                                                                 </tr>
                                                             </>

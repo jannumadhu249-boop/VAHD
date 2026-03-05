@@ -5691,7 +5691,7 @@ const Dashboard = () => {
                   </Row>
 
                   {/* ADMIN - INSTITUTION METRICS SECTION */}
-                  <Row style={{ marginBottom: "20px" }}>
+                  {/* <Row style={{ marginBottom: "20px" }}>
                     <Col lg="12">
                       <Card style={styles.metricsCard}>
                         <CardBody style={{ padding: "16px", position: "relative" }}>
@@ -5947,7 +5947,7 @@ const Dashboard = () => {
                         </CardBody>
                       </Card>
                     </Col>
-                  </Row>
+                  </Row> */}
                   <Row className="mb-4">
                     <Col xl="12">
                       <InstitutionProfile />
