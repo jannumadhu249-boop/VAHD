@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import Breadcrumbs from "../../components/Common/Breadcrumb"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
@@ -49,7 +49,9 @@ const FodderDistributionState = () => {
   const [financialYears, setFinancialYears] = useState([])
   const [quarters, setQuarters] = useState([])
   const [schemes, setSchemes] = useState([])
-  const [places, setPlaces] = useState([])
+  const [directorates, setDirectorates] = useState([])         
+  const [filteredDirectorates, setFilteredDirectorates] = useState([]) 
+  const [employmentTypes, setEmploymentTypes] = useState([])
   const [fodderItems, setFodderItems] = useState([])
 
   // UI states
@@ -72,7 +74,8 @@ const FodderDistributionState = () => {
     year: "",
     quarter: "",
     scheme: "",
-    placeOfWorking: "",
+    institutionType: "",
+    directorate: "", // renamed from placeOfWorking
   })
   const [addRows, setAddRows] = useState([
     { fodderItem: "", quantity: "", price: "" },
@@ -84,21 +87,30 @@ const FodderDistributionState = () => {
     year: "",
     quarter: "",
     scheme: "",
-    placeOfWorking: "",
+    directorate: "", // renamed
+    institutionType: "",
     fodderItem: "",
     quantity: "",
     price: "",
   })
 
-  // ---------- Helper to map IDs to options ----------
+  // ---------- Helper to map IDs to options (with type safety) ----------
   const getOption = (options, value) =>
-    options.find(opt => opt.value === value) || null
+    options.find(opt => String(opt.value) === String(value)) || null
 
   // Prepare select options
   const yearOptions = financialYears.map(y => ({ value: y._id, label: y.year }))
   const quarterOptions = quarters.map(q => ({ value: q._id, label: q.quarter }))
   const schemeOptions = schemes.map(s => ({ value: s._id, label: s.name }))
-  const placeOptions = places.map(p => ({ value: p._id, label: p.name }))
+  const employmentOptions = employmentTypes.map(e => ({
+    value: e._id,
+    label: e.name,
+  }))
+  // Directorate options derived from filteredDirectorates
+  const directorateOptions = filteredDirectorates.map(p => ({
+    value: p._id,
+    label: p.name,
+  }))
   const fodderItemOptions = fodderItems.map(f => ({
     value: f._id,
     label: f.name || f.typeOfSeedName,
@@ -108,41 +120,62 @@ const FodderDistributionState = () => {
   useEffect(() => {
     const fetchDropdowns = async () => {
       try {
-        const [fyRes, qRes, schRes, pRes, fiRes] = await Promise.all([
-          axios.post(
-            URLS.GetFinancialyear,
-            {},
-            { headers: { Authorization: `Bearer ${token}` } }
-          ),
-          axios.post(
-            URLS.GetQuarter,
-            {},
-            { headers: { Authorization: `Bearer ${token}` } }
-          ),
-          axios.post(
-            URLS.GetScheme,
-            {},
-            { headers: { Authorization: `Bearer ${token}` } }
-          ),
-          axios.post(
-            URLS.GetAllPlaceOfWorkingPaginated,
-            {},
-            { headers: { Authorization: `Bearer ${token}` } }
-          ),
-          axios.post(
-            URLS.GetAllFodderItems,
-            {},
-            { headers: { Authorization: `Bearer ${token}` } }
-          ),
-        ])
+        if (!token) {
+          toast.error("Authentication token missing. Please log in.")
+          return
+        }
+
+        const [fyRes, qRes, schRes, empRes, placeRes, fiRes] =
+          await Promise.all([
+            axios.post(
+              URLS.GetFinancialyear,
+              {},
+              { headers: { Authorization: `Bearer ${token}` } }
+            ),
+            axios.post(
+              URLS.GetQuarter,
+              {},
+              { headers: { Authorization: `Bearer ${token}` } }
+            ),
+            axios.post(
+              URLS.GetScheme,
+              {},
+              { headers: { Authorization: `Bearer ${token}` } }
+            ),
+            axios.get(URLS.GetEmploymentType, {
+              headers: { Authorization: `Bearer ${token}` },
+            }),
+            axios.post(
+              URLS.GetPlaceOfWorking,
+              {},
+              { headers: { Authorization: `Bearer ${token}` } }
+            ),
+            axios.post(
+              URLS.GetAllFodderItems,
+              {},
+              { headers: { Authorization: `Bearer ${token}` } }
+            ),
+          ])
 
         setFinancialYears(fyRes.data?.data || [])
         setQuarters(qRes.data?.data || [])
         setSchemes(schRes.data?.schemes || [])
-        setPlaces(pRes.data?.data || [])
+        setEmploymentTypes(empRes.data?.data || [])
+        setDirectorates(placeRes.data?.data || [])
         setFodderItems(fiRes.data?.data || [])
       } catch (error) {
-        toast.error("Failed to load filter options or fodder items")
+        console.error("Dropdown fetch error:", error)
+        if (error.response) {
+          toast.error(
+            `Failed to load: ${error.response.status} - ${
+              error.response.data?.message || "Unknown error"
+            }`
+          )
+        } else if (error.request) {
+          toast.error("Network error – no response from server")
+        } else {
+          toast.error("Failed to load filter options or fodder items")
+        }
       } finally {
         setLoading(prev => ({ ...prev, fodderItems: false }))
       }
@@ -151,12 +184,31 @@ const FodderDistributionState = () => {
     fetchRecords()
   }, [])
 
-  // ---------- Fetch all records (matches the provided curl & response) ----------
+  // ---------- Filter directorates when institution type changes ----------
+  useEffect(() => {
+    if (addFilters.institutionType) {
+      // 🔧 Replace 'institutionTypeId' with the actual field linking a place to an institution type
+      const filtered = directorates.filter(
+        place => place.institutionTypeId === addFilters.institutionType
+      )
+      setFilteredDirectorates(filtered)
+      if (addFilters.directorate) {
+        const stillExists = filtered.some(p => p._id === addFilters.directorate)
+        if (!stillExists) {
+          setAddFilters(prev => ({ ...prev, directorate: "" }))
+        }
+      }
+    } else {
+      setFilteredDirectorates(directorates)
+    }
+  }, [addFilters.institutionType, directorates])
+
+  // ---------- Fetch all records ----------
   const fetchRecords = async () => {
     setLoading(prev => ({ ...prev, page: true }))
     try {
       const res = await axios.post(
-        URLS.GetAllFodderDistribution,
+        URLS.GetAllFodderDistributionState,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       )
@@ -168,22 +220,22 @@ const FodderDistributionState = () => {
     }
   }
 
-  // ---------- Search function ----------
+  // ---------- Search function (fixed to use query params) ----------
   const searchRecords = async query => {
     if (!query.trim()) {
-      // If search is empty, fetch all records
       fetchRecords()
       return
     }
 
     setLoading(prev => ({ ...prev, search: true }))
     try {
-      // Assuming the search endpoint expects a POST with the query appended to the URL
-      // e.g., URLS.GetFodderDistributionSearch + query
       const res = await axios.post(
-        `${URLS.GetFodderDistributionSearch}${query}`,
+        URLS.GetAllFodderDistributionState,
         {},
-        { headers: { Authorization: `Bearer ${token}` } }
+        {
+          headers: { Authorization: `Bearer ${token}` },
+          params: { searchQuery: query },
+        }
       )
       setRecords(res.data?.data || [])
     } catch (error) {
@@ -193,28 +245,16 @@ const FodderDistributionState = () => {
     }
   }
 
-  // Handle search input change with debounce
   const handleSearchChange = e => {
     const value = e.target.value
     setSearchQuery(value)
-
-    // Clear previous timeout
-    if (searchTimeout.current) {
-      clearTimeout(searchTimeout.current)
-    }
-
-    // Set new timeout
-    searchTimeout.current = setTimeout(() => {
-      searchRecords(value)
-    }, 500)
+    if (searchTimeout.current) clearTimeout(searchTimeout.current)
+    searchTimeout.current = setTimeout(() => searchRecords(value), 500)
   }
 
-  // Cleanup timeout on unmount
   useEffect(() => {
     return () => {
-      if (searchTimeout.current) {
-        clearTimeout(searchTimeout.current)
-      }
+      if (searchTimeout.current) clearTimeout(searchTimeout.current)
     }
   }, [])
 
@@ -239,13 +279,18 @@ const FodderDistributionState = () => {
     }
   }
 
+  // Compute total allocated stock from current add rows (sum of quantities)
+  const totalAllocated = addRows.reduce(
+    (acc, row) => acc + (parseFloat(row.quantity) || 0),
+    0
+  )
   const totalAmount = addRows.reduce(
     (acc, row) =>
       acc + (parseFloat(row.quantity) || 0) * (parseFloat(row.price) || 0),
     0
   )
 
-  // Submit add form – POST each row individually
+  // Submit add form – corrected payload
   const handleAddSubmit = async e => {
     e.preventDefault()
 
@@ -253,7 +298,7 @@ const FodderDistributionState = () => {
       !addFilters.year ||
       !addFilters.quarter ||
       !addFilters.scheme ||
-      !addFilters.placeOfWorking
+      !addFilters.directorate
     ) {
       toast.warning("Please select all filter fields")
       return
@@ -275,14 +320,14 @@ const FodderDistributionState = () => {
         year: addFilters.year,
         quarter: addFilters.quarter,
         scheme: addFilters.scheme,
-        placeOfWorking: addFilters.placeOfWorking,
+        directorate: addFilters.directorate, // ✅ correct field
         fodderItem: row.fodderItem,
         quantity: parseFloat(row.quantity),
         price: parseFloat(row.price),
       }
 
       try {
-        await axios.post(URLS.AddFodderDistribution, payload, {
+        await axios.post(URLS.AddFodderDistributionState, payload, {
           headers: { Authorization: `Bearer ${token}` },
         })
         successCount++
@@ -306,7 +351,7 @@ const FodderDistributionState = () => {
       year: record.year,
       quarter: record.quarter,
       scheme: record.scheme,
-      placeOfWorking: record.placeOfWorking,
+      directorate: record.directorate, // ID
       fodderItem: record.fodderItem,
       quantity: record.quantity.toString(),
       price: record.price.toString(),
@@ -339,7 +384,7 @@ const FodderDistributionState = () => {
       year: editItem.year,
       quarter: editItem.quarter,
       scheme: editItem.scheme,
-      placeOfWorking: editItem.placeOfWorking,
+      directorate: editItem.directorate, // ✅ correct field
       fodderItem: editItem.fodderItem,
       quantity: parseFloat(editItem.quantity),
       price: parseFloat(editItem.price),
@@ -347,7 +392,7 @@ const FodderDistributionState = () => {
 
     try {
       await axios.put(
-        `${URLS.EditFodderDistribution}/${editItem._id}`,
+        `${URLS.EditFodderDistributionState}/${editItem._id}`,
         payload,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -367,7 +412,7 @@ const FodderDistributionState = () => {
   const deleteRecord = async id => {
     if (!window.confirm("Are you sure you want to delete this record?")) return
     try {
-      await axios.delete(`${URLS.DeleteFodderDistribution}/${id}`, {
+      await axios.delete(`${URLS.DeleteFodderDistributionState}/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       toast.success("Record deleted")
@@ -382,7 +427,13 @@ const FodderDistributionState = () => {
     setShowAddForm(false)
     setShowEditForm(false)
     setShowMainList(true)
-    setAddFilters({ year: "", quarter: "", scheme: "", placeOfWorking: "" })
+    setAddFilters({
+      year: "",
+      quarter: "",
+      scheme: "",
+      institutionType: "",
+      directorate: "",
+    })
     setAddRows([{ fodderItem: "", quantity: "", price: "" }])
   }
 
@@ -458,19 +509,37 @@ const FodderDistributionState = () => {
                             />
                           </FormGroup>
                         </Col>
-                        <Col md={3}>
+                        {/* <Col md={3}>
                           <FormGroup>
-                            <Label>Place of Working *</Label>
+                            <Label>Institution Type *</Label>
                             <Select
-                              name="placeOfWorking"
+                              name="institutionType"
                               value={getOption(
-                                placeOptions,
-                                addFilters.placeOfWorking
+                                employmentOptions,
+                                addFilters.institutionType
                               )}
                               onChange={handleAddFilterChange}
-                              options={placeOptions}
+                              options={employmentOptions}
                               styles={selectStyles}
-                              placeholder="Select Place"
+                              placeholder="Select Institution Type"
+                              isClearable
+                              isDisabled={loading.submit}
+                            />
+                          </FormGroup>
+                        </Col> */}
+                        <Col md={3}>
+                          <FormGroup>
+                            <Label>Directorate *</Label> {/* renamed */}
+                            <Select
+                              name="directorate"
+                              value={getOption(
+                                directorateOptions,
+                                addFilters.directorate
+                              )}
+                              onChange={handleAddFilterChange}
+                              options={directorateOptions}
+                              styles={selectStyles}
+                              placeholder="Select Directorate"
                               isClearable
                               isDisabled={loading.submit}
                             />
@@ -492,13 +561,13 @@ const FodderDistributionState = () => {
                         </Button>
                       </div>
 
-                      <Table bordered size="sm" className="mb-3">
+                      <Table bordered size="ms" className="mb-3">
                         <thead className="table-light">
                           <tr>
                             <th>Sl.No</th>
-                            <th>Fodder Item</th>
-                            <th>Quantity</th>
-                            <th>Price (per unit)</th>
+                            <th className="col-4">Fodder Item</th>
+                            <th className="col-4">Quantity</th>
+                            <th className="col-4">Price (per unit)</th>
                             <th style={{ width: "50px" }}>Action</th>
                           </tr>
                         </thead>
@@ -576,32 +645,20 @@ const FodderDistributionState = () => {
                           ))}
                         </tbody>
                       </Table>
-                      
-                          <Row className="mt-3">
-                            <Col md={6}>
-                              <div className="alert alert-info">
-                                <strong>
-                                  Total Stock:
-                                  {/* {calculateTotalPercentage(form1.forms).toFixed(1)}% */}
-                                </strong>
-                              </div>
-                            </Col>
-                            <Col md={6}>
-                              <div
-                                className={`alert ${
-                                  parseFloat
-                                    ? //   (form1.remainingBudget) >= 0
-                                      "alert-success"
-                                    : "alert-danger"
-                                }`}
-                              >
-                                <strong>
-                                  Remaining Stock:
-                                  {/* {form1.remainingBudget} */}
-                                </strong>
-                              </div>
-                            </Col>
-                          </Row>
+
+                      {/* Stock alerts */}
+                      <Row>
+                        <Col md={6}>
+                          <div className="alert alert-info">
+                            <strong>Total Allocated Stock: {totalAllocated}</strong>
+                          </div>
+                        </Col>
+                        <Col md={6}>
+                          <div className="alert alert-success">
+                            <strong>Remaining Stock: (data not yet available)</strong>
+                          </div>
+                        </Col>
+                      </Row>
 
                       <div className="d-flex justify-content-end mb-3">
                         <div
@@ -706,17 +763,35 @@ const FodderDistributionState = () => {
                         </Col>
                         <Col md={3}>
                           <FormGroup>
-                            <Label>Place of Working *</Label>
+                            <Label>Institution Type *</Label>
                             <Select
-                              name="placeOfWorking"
+                              name="institutionType"
                               value={getOption(
-                                placeOptions,
-                                editItem.placeOfWorking
+                                employmentOptions,
+                                editItem.institutionType
                               )}
                               onChange={handleEditFilterChange}
-                              options={placeOptions}
+                              options={employmentOptions}
                               styles={selectStyles}
-                              placeholder="Select Place"
+                              placeholder="Select Institution Type"
+                              isClearable
+                              isDisabled={loading.submit}
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col md={3}>
+                          <FormGroup>
+                            <Label>Directorate *</Label>
+                            <Select
+                              name="directorate"
+                              value={getOption(
+                                directorateOptions,
+                                editItem.directorate
+                              )}
+                              onChange={handleEditFilterChange}
+                              options={directorateOptions}
+                              styles={selectStyles}
+                              placeholder="Select Directorate"
                               isClearable
                               isDisabled={loading.submit}
                             />
@@ -849,7 +924,7 @@ const FodderDistributionState = () => {
                           <div style={{ maxWidth: "300px" }}>
                             <Input
                               type="search"
-                              placeholder="Search by place, fodder item, year..."
+                              placeholder="Search by directorate, fodder item, year..."
                               value={searchQuery}
                               onChange={handleSearchChange}
                               className="form-control"
@@ -877,7 +952,7 @@ const FodderDistributionState = () => {
                               <th>Financial Year</th>
                               <th>Quarter</th>
                               <th>Scheme</th>
-                              <th>Place of Working</th>
+                              <th>Directorate</th>
                               <th>Fodder Item</th>
                               <th>Quantity</th>
                               <th>Price</th>
@@ -894,7 +969,7 @@ const FodderDistributionState = () => {
                                 <td>{rec.financialYear}</td>
                                 <td>{rec.financialQuarter}</td>
                                 <td>{rec.yearScheme}</td>
-                                <td>{rec.placeOfWorkingName}</td>
+                                <td>{rec.directorateName}</td>
                                 <td>{rec.typeOfSeedName}</td>
                                 <td>{rec.quantity}</td>
                                 <td>₹{rec.price}</td>

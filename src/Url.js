@@ -462,4 +462,10 @@ export const URLS = {
   DeleteFodderDistribution: Url + "v1/api/admin/foderDistributionDistrictWise/deleteFodderDistributionDistrictWise/",
   GetFodderDistributionSearch: Url + "v1/api/admin/foderDistributionDistrictWise/getFodderDistributionDistrictWise?searchQuery=",
 
+  // Fodder Distribution State
+  GetAllFodderDistributionState: Url + "v1/api/admin/directorateFodderStock/getDirectorateFodderStock",
+  AddFodderDistributionState: Url + "v1/api/admin/directorateFodderStock/addDirectorateFodderStock",
+  EditFodderDistributionState: Url + "v1/api/admin/directorateFodderStock/updateDirectorateFodderStock/",
+  GetFodderDistributionStateSearch: Url + "v1/api/admin/directorateFodderStock/getDirectorateFodderStock?searchQuery=",
+
 }

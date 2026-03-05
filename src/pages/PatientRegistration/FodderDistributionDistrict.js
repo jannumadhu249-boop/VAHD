@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -19,7 +19,6 @@ import {
   Spinner,
 } from "reactstrap";
 
-// ---------- React‑select styles ----------
 const selectStyles = {
   control: (base, state) => ({
     ...base,
@@ -40,7 +39,6 @@ const selectStyles = {
 };
 
 const FodderDistributionDistrict = () => {
-  // Auth token
   const authUser = JSON.parse(localStorage.getItem("authUser") || "{}");
   const token = authUser?.token || "";
 
@@ -50,9 +48,15 @@ const FodderDistributionDistrict = () => {
   const [quarters, setQuarters] = useState([]);
   const [schemes, setSchemes] = useState([]);
   const [places, setPlaces] = useState([]);
+  const [filteredPlaces, setFilteredPlaces] = useState([]);
+  const [employmentTypes, setEmploymentTypes] = useState([]);
   const [fodderItems, setFodderItems] = useState([]);
 
-  // UI states
+  const [stockInfo, setStockInfo] = useState({
+    remainingStock: null,
+    totalDistributed: null,
+  });
+
   const [showAddForm, setShowAddForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
   const [showMainList, setShowMainList] = useState(true);
@@ -63,49 +67,57 @@ const FodderDistributionDistrict = () => {
     search: false,
   });
 
-  // Search state
   const [searchQuery, setSearchQuery] = useState("");
   const searchTimeout = useRef(null);
 
-  // ---------- Add form state ----------
   const [addFilters, setAddFilters] = useState({
     year: "",
     quarter: "",
     scheme: "",
+    institutionType: "",
     placeOfWorking: "",
   });
   const [addRows, setAddRows] = useState([{ fodderItem: "", quantity: "", price: "" }]);
 
-  // ---------- Edit form state (single record) ----------
   const [editItem, setEditItem] = useState({
     _id: "",
     year: "",
     quarter: "",
     scheme: "",
     placeOfWorking: "",
+    institutionType: "",
     fodderItem: "",
     quantity: "",
     price: "",
   });
 
-  // ---------- Helper to map IDs to options ----------
-  const getOption = (options, value) => options.find((opt) => opt.value === value) || null;
+  const getOption = (options, value) =>
+    options.find((opt) => String(opt.value) === String(value)) || null;
 
-  // Prepare select options
   const yearOptions = financialYears.map((y) => ({ value: y._id, label: y.year }));
   const quarterOptions = quarters.map((q) => ({ value: q._id, label: q.quarter }));
   const schemeOptions = schemes.map((s) => ({ value: s._id, label: s.name }));
-  const placeOptions = places.map((p) => ({ value: p._id, label: p.name }));
-  const fodderItemOptions = fodderItems.map((f) => ({ value: f._id, label: f.name || f.typeOfSeedName }));
+  const employmentOptions = employmentTypes.map((e) => ({ value: e._id, label: e.name }));
+  const placeOptions = filteredPlaces.map((p) => ({ value: p._id, label: p.name }));
+  const fodderItemOptions = fodderItems.map((f) => ({
+    value: f._id,
+    label: f.name || f.typeOfSeedName,
+  }));
 
-  // ---------- Fetch all dropdown data on mount ----------
+  // ---------- Fetch all dropdowns ----------
   useEffect(() => {
     const fetchDropdowns = async () => {
       try {
-        const [fyRes, qRes, schRes, pRes, fiRes] = await Promise.all([
+        if (!token) {
+          toast.error("Authentication token missing. Please log in.");
+          return;
+        }
+
+        const [fyRes, qRes, schRes, empRes, placeRes, fiRes] = await Promise.all([
           axios.post(URLS.GetFinancialyear, {}, { headers: { Authorization: `Bearer ${token}` } }),
           axios.post(URLS.GetQuarter, {}, { headers: { Authorization: `Bearer ${token}` } }),
           axios.post(URLS.GetScheme, {}, { headers: { Authorization: `Bearer ${token}` } }),
+          axios.get(URLS.GetEmploymentType, { headers: { Authorization: `Bearer ${token}` } }),
           axios.post(URLS.GetPlaceOfWorking, {}, { headers: { Authorization: `Bearer ${token}` } }),
           axios.post(URLS.GetAllFodderItems, {}, { headers: { Authorization: `Bearer ${token}` } }),
         ]);
@@ -113,10 +125,12 @@ const FodderDistributionDistrict = () => {
         setFinancialYears(fyRes.data?.data || []);
         setQuarters(qRes.data?.data || []);
         setSchemes(schRes.data?.schemes || []);
-        setPlaces(pRes.data?.data || []);
+        setEmploymentTypes(empRes.data?.data || []);
+        setPlaces(placeRes.data?.data || []);
         setFodderItems(fiRes.data?.data || []);
       } catch (error) {
-        toast.error("Failed to load filter options or fodder items");
+        console.error("Dropdown fetch error:", error);
+        toast.error("Failed to load filter options");
       } finally {
         setLoading((prev) => ({ ...prev, fodderItems: false }));
       }
@@ -125,7 +139,24 @@ const FodderDistributionDistrict = () => {
     fetchRecords();
   }, []);
 
-  // ---------- Fetch all records (matches the provided curl & response) ----------
+  // ---------- Filter places based on institution type ----------
+  useEffect(() => {
+    if (addFilters.institutionType) {
+      // 🔧 Replace 'institutionTypeId' with the actual field linking place to institution type
+      const filtered = places.filter(
+        (place) => place.institutionTypeId === addFilters.institutionType
+      );
+      setFilteredPlaces(filtered);
+      if (addFilters.placeOfWorking) {
+        const stillExists = filtered.some((p) => p._id === addFilters.placeOfWorking);
+        if (!stillExists) setAddFilters((prev) => ({ ...prev, placeOfWorking: "" }));
+      }
+    } else {
+      setFilteredPlaces(places);
+    }
+  }, [addFilters.institutionType, places]);
+
+  // ---------- Fetch records ----------
   const fetchRecords = async () => {
     setLoading((prev) => ({ ...prev, page: true }));
     try {
@@ -142,18 +173,14 @@ const FodderDistributionDistrict = () => {
     }
   };
 
-  // ---------- Search function ----------
+  // ---------- Search ----------
   const searchRecords = async (query) => {
     if (!query.trim()) {
-      // If search is empty, fetch all records
       fetchRecords();
       return;
     }
-
     setLoading((prev) => ({ ...prev, search: true }));
     try {
-      // Assuming the search endpoint expects a POST with the query appended to the URL
-      // e.g., URLS.GetFodderDistributionSearch + query
       const res = await axios.post(
         `${URLS.GetFodderDistributionSearch}${query}`,
         {},
@@ -167,32 +194,20 @@ const FodderDistributionDistrict = () => {
     }
   };
 
-  // Handle search input change with debounce
   const handleSearchChange = (e) => {
     const value = e.target.value;
     setSearchQuery(value);
-
-    // Clear previous timeout
-    if (searchTimeout.current) {
-      clearTimeout(searchTimeout.current);
-    }
-
-    // Set new timeout
-    searchTimeout.current = setTimeout(() => {
-      searchRecords(value);
-    }, 500);
+    if (searchTimeout.current) clearTimeout(searchTimeout.current);
+    searchTimeout.current = setTimeout(() => searchRecords(value), 500);
   };
 
-  // Cleanup timeout on unmount
   useEffect(() => {
     return () => {
-      if (searchTimeout.current) {
-        clearTimeout(searchTimeout.current);
-      }
+      if (searchTimeout.current) clearTimeout(searchTimeout.current);
     };
   }, []);
 
-  // ---------- Handlers for add form ----------
+  // ---------- Add form handlers ----------
   const handleAddFilterChange = (selectedOption, { name }) => {
     setAddFilters((prev) => ({ ...prev, [name]: selectedOption?.value || "" }));
   };
@@ -203,22 +218,18 @@ const FodderDistributionDistrict = () => {
     setAddRows(updated);
   };
 
-  const addRow = () => {
-    setAddRows([...addRows, { fodderItem: "", quantity: "", price: "" }]);
-  };
-
+  const addRow = () => setAddRows([...addRows, { fodderItem: "", quantity: "", price: "" }]);
   const removeRow = (index) => {
-    if (addRows.length > 1) {
-      setAddRows(addRows.filter((_, i) => i !== index));
-    }
+    if (addRows.length > 1) setAddRows(addRows.filter((_, i) => i !== index));
   };
 
+  const totalAllocated = addRows.reduce((acc, row) => acc + (parseFloat(row.quantity) || 0), 0);
   const totalAmount = addRows.reduce(
     (acc, row) => acc + (parseFloat(row.quantity) || 0) * (parseFloat(row.price) || 0),
     0
   );
 
-  // Submit add form – POST each row individually
+  // ---------- Submit Add Form ----------
   const handleAddSubmit = async (e) => {
     e.preventDefault();
 
@@ -233,25 +244,52 @@ const FodderDistributionDistrict = () => {
       return;
     }
 
+    const selectedPlace = filteredPlaces.find((p) => p._id === addFilters.placeOfWorking);
+    if (!selectedPlace) {
+      toast.error("Selected place not found");
+      return;
+    }
+
+// 🔧 ADJUST THIS LINE TO MATCH YOUR ACTUAL DATA STRUCTURE
+const directorateId =
+  selectedPlace.directorateId ||          
+  selectedPlace.directorate ||
+  selectedPlace.directorate_id ||
+  selectedPlace.directorate?._id ||
+  selectedPlace.institutionTypeId ||       
+  selectedPlace.districtId ||              
+  "";
+
+if (!directorateId) {
+  toast.error("Directorate information missing for this place");
+  console.error("Place object:", selectedPlace);
+  return;
+}
+
     setLoading((prev) => ({ ...prev, submit: true }));
 
     let successCount = 0;
+    let lastResponse = null;
     for (const row of addRows) {
       const payload = {
         year: addFilters.year,
         quarter: addFilters.quarter,
         scheme: addFilters.scheme,
         placeOfWorking: addFilters.placeOfWorking,
+        directorate: directorateId,
         fodderItem: row.fodderItem,
         quantity: parseFloat(row.quantity),
         price: parseFloat(row.price),
       };
 
+      console.log("🚀 Submitting payload to:", URLS.AddFodderDistribution, payload);
+
       try {
-        await axios.post(URLS.AddFodderDistribution, payload, {
+        const response = await axios.post(URLS.AddFodderDistribution, payload, {
           headers: { Authorization: `Bearer ${token}` },
         });
         successCount++;
+        lastResponse = response.data;
       } catch (error) {
         toast.error(`Failed to add item: ${row.fodderItem}`);
       }
@@ -259,6 +297,12 @@ const FodderDistributionDistrict = () => {
 
     if (successCount > 0) {
       toast.success(`${successCount} item(s) added successfully`);
+      if (lastResponse) {
+        setStockInfo({
+          remainingStock: lastResponse.remainingStock,
+          totalDistributed: lastResponse.totalDistributed,
+        });
+      }
       await fetchRecords();
       cancelForms();
     }
@@ -301,15 +345,35 @@ const FodderDistributionDistrict = () => {
 
     setLoading((prev) => ({ ...prev, submit: true }));
 
+
+// 🔧 ADJUST THIS LINE TO MATCH YOUR ACTUAL DATA STRUCTURE
+const directorateId =
+  selectedPlace.directorateId ||         
+  selectedPlace.directorate ||
+  selectedPlace.directorate_id ||
+  selectedPlace.directorate?._id ||
+  selectedPlace.institutionTypeId ||       
+  selectedPlace.districtId ||              
+  "";
+
+if (!directorateId) {
+  toast.error("Directorate information missing for this place");
+  console.error("Place object:", selectedPlace);
+  return;
+}
+
     const payload = {
       year: editItem.year,
       quarter: editItem.quarter,
       scheme: editItem.scheme,
       placeOfWorking: editItem.placeOfWorking,
+      directorate: directorateId,
       fodderItem: editItem.fodderItem,
       quantity: parseFloat(editItem.quantity),
       price: parseFloat(editItem.price),
     };
+
+    console.log("✏️ Updating payload:", payload);
 
     try {
       await axios.put(`${URLS.EditFodderDistribution}/${editItem._id}`, payload, {
@@ -319,13 +383,13 @@ const FodderDistributionDistrict = () => {
       await fetchRecords();
       cancelForms();
     } catch (error) {
+      console.error("Edit error:", error.response?.data || error.message);
       toast.error("Failed to update record");
     } finally {
       setLoading((prev) => ({ ...prev, submit: false }));
     }
   };
 
-  // ---------- Delete ----------
   const deleteRecord = async (id) => {
     if (!window.confirm("Are you sure you want to delete this record?")) return;
     try {
@@ -339,22 +403,23 @@ const FodderDistributionDistrict = () => {
     }
   };
 
-  // ---------- Cancel forms ----------
   const cancelForms = () => {
     setShowAddForm(false);
     setShowEditForm(false);
     setShowMainList(true);
-    setAddFilters({ year: "", quarter: "", scheme: "", placeOfWorking: "" });
+    setAddFilters({ year: "", quarter: "", scheme: "", institutionType: "", placeOfWorking: "" });
     setAddRows([{ fodderItem: "", quantity: "", price: "" }]);
+    setStockInfo({ remainingStock: null, totalDistributed: null });
   };
 
+  // ---------- Render ----------
   return (
     <React.Fragment>
       <div className="page-content">
         <div className="container-fluid">
           <Breadcrumbs title="VAHD ADMIN" breadcrumbItem="Fodder Distribution District" />
 
-          {/* Add Form */}
+          {/* Add Form (collapsed for brevity – same as before) */}
           {showAddForm && (
             <Row>
               <Col md={12}>
@@ -364,6 +429,7 @@ const FodderDistributionDistrict = () => {
                       <i className="bx bx-plus-circle me-2"></i>Add Fodder Distribution
                     </h5>
                     <Form onSubmit={handleAddSubmit}>
+                      {/* Filters row – same as original */}
                       <Row className="g-3 mb-3">
                         <Col md={3}>
                           <FormGroup>
@@ -410,6 +476,21 @@ const FodderDistributionDistrict = () => {
                             />
                           </FormGroup>
                         </Col>
+                        {/* <Col md={3}>
+                          <FormGroup>
+                            <Label>Institution Type *</Label>
+                            <Select
+                              name="institutionType"
+                              value={getOption(employmentOptions, addFilters.institutionType)}
+                              onChange={handleAddFilterChange}
+                              options={employmentOptions}
+                              styles={selectStyles}
+                              placeholder="Select Institution Type"
+                              isClearable
+                              isDisabled={loading.submit}
+                            />
+                          </FormGroup>
+                        </Col> */}
                         <Col md={3}>
                           <FormGroup>
                             <Label>Place of Working *</Label>
@@ -427,6 +508,7 @@ const FodderDistributionDistrict = () => {
                         </Col>
                       </Row>
 
+                      {/* Items table */}
                       <div className="d-flex justify-content-between align-items-center mb-3">
                         <h6 className="text-primary mb-0">
                           <i className="bx bx-package me-2"></i>Fodder Items
@@ -440,9 +522,9 @@ const FodderDistributionDistrict = () => {
                         <thead className="table-light">
                           <tr>
                             <th>Sl.No</th>
-                            <th>Fodder Item</th>
-                            <th>Quantity</th>
-                            <th>Price (per unit)</th>
+                            <th className="col-4">Fodder Item</th>
+                            <th className="col-4">Quantity</th>
+                            <th className="col-4">Price (per unit)</th>
                             <th style={{ width: "50px" }}>Action</th>
                           </tr>
                         </thead>
@@ -499,6 +581,20 @@ const FodderDistributionDistrict = () => {
                         </tbody>
                       </Table>
 
+                      {/* Stock info */}
+                      <Row>
+                        <Col md={6}>
+                          <div className="alert alert-info">
+                            <strong>Total Distributed: {stockInfo.totalDistributed !== null ? stockInfo.totalDistributed : totalAllocated}</strong>
+                          </div>
+                        </Col>
+                        <Col md={6}>
+                          <div className="alert alert-success">
+                            <strong>Remaining Stock: {stockInfo.remainingStock !== null ? stockInfo.remainingStock : "N/A"}</strong>
+                          </div>
+                        </Col>
+                      </Row>
+
                       <div className="d-flex justify-content-end mb-3">
                         <div className="bg-light p-2 rounded" style={{ minWidth: "200px", textAlign: "right" }}>
                           <strong>Total Amount: </strong>
@@ -521,7 +617,7 @@ const FodderDistributionDistrict = () => {
             </Row>
           )}
 
-          {/* Edit Form (single item) */}
+          {/* Edit Form – (keep as before) */}
           {showEditForm && (
             <Row>
               <Col md={12}>
@@ -531,6 +627,7 @@ const FodderDistributionDistrict = () => {
                       <i className="bx bx-edit me-2"></i>Edit Fodder Distribution
                     </h5>
                     <Form onSubmit={handleEditSubmit}>
+                      {/* Filters row – same as original */}
                       <Row className="g-3 mb-3">
                         <Col md={3}>
                           <FormGroup>
@@ -668,7 +765,7 @@ const FodderDistributionDistrict = () => {
             </Row>
           )}
 
-          {/* Main List */}
+          {/* Main List – (keep as before) */}
           {showMainList && (
             <Row>
               <Col md={12}>

@@ -434,7 +434,7 @@ const Navbar = props => {
                       <li className="nav-item dropdown">
                         <Link className="nav-link arrow-none" to="/fodder-distribution-state">
                           <i className="bx bx-caret-right me-2"></i>
-                          {props.t("Fodder Distribution State")}
+                          {props.t("State Stock Entry")}
                         </Link>
                       </li>
                       

@@ -593,6 +593,14 @@ const Fodder = () => {
                     <Form onSubmit={formAddSubmit}>
                       <div className="form-section">
                         <Row>
+                          <Col md={4}>
+                            <div className="text-center pt-4">
+                              <h6 className="text-primary">
+                                <i className="bx bx-user me-2"></i>
+                                User Name: {UserDetails?.name}
+                              </h6>
+                            </div>
+                          </Col>
                           <Col md={3}>
                             <FormGroup>
                               <Label for="visitDate" className="fw-bold">
@@ -628,14 +636,14 @@ const Fodder = () => {
                               />
                             </FormGroup>
                           </Col>
-                          <Col md={4}>
+                          {/* <Col md={4}>
                             <div className="text-center pt-4">
                               <h6 className="text-primary">
                                 <i className="bx bx-user me-2"></i>
                                 User Name: {UserDetails?.name}
                               </h6>
                             </div>
-                          </Col>
+                          </Col> */}
                         </Row>
                       </div>
 

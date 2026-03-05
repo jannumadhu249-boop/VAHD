@@ -140,6 +140,7 @@ const LeavesManagement = () => {
         leave.subject?.toLowerCase().includes(value) ||
         leave.description?.toLowerCase().includes(value) ||
         leave.appliedBy?.toLowerCase().includes(value) ||
+        leave.employeeId?.toLowerCase().includes(value) ||
         (leave.status === 'approved' && leave.approvedByName?.toLowerCase().includes(value))
     )
     setFilteredLeaves(filtered)
@@ -334,6 +335,7 @@ const LeavesManagement = () => {
     const data = {
       "S.No": index + 1,
       "Applied By": leave.appliedBy || "N/A",
+      "Employee ID": leave.employeeId || "N/A",
       "Place of Working": leave.placeofworkingName || "N/A",
       "Institution Name": leave.institutionName || "N/A",
       "Leave From": formatDate(leave.fromDate),
@@ -541,6 +543,7 @@ const LeavesManagement = () => {
                                     S.No
                                   </th>
                                   <th>Applied By</th>
+                                  <th>Employee ID</th>
                                   <th>Institution</th>
                                   <th>Place of Working</th>
                                   <th className="text-center">Leave From</th>
@@ -572,6 +575,7 @@ const LeavesManagement = () => {
                                           {leave.appliedBy || "N/A"}
                                         </div>
                                       </td>
+                                      <td>{leave.employeeId || "N/A"}</td>
                                       <td>
                                         <div className="fw-bold text-dark">
                                           {leave.institutionName || "N/A"}
@@ -736,6 +740,14 @@ const LeavesManagement = () => {
                             <h6 className="mb-0">{selectedLeave.appliedBy || "N/A"}</h6>
                           </div>
                         </Col>
+                        <Col md={6}>
+                          <div className="border-bottom pb-2 mb-3">
+                            <Label className="text-muted mb-1">Employee ID</Label>
+                            <h6 className="mb-0">{selectedLeave.employeeId || "N/A"}</h6>
+                          </div>
+                        </Col>
+                      </Row>
+                      <Row className="mb-3">
                         {selectedLeave.status === 'approved' && (
                           <Col md={6}>
                             <div className="border-bottom pb-2 mb-3">
