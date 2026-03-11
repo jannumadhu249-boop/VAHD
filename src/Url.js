@@ -468,4 +468,8 @@ export const URLS = {
   EditFodderDistributionState: Url + "v1/api/admin/directorateFodderStock/updateDirectorateFodderStock/",
   GetFodderDistributionStateSearch: Url + "v1/api/admin/directorateFodderStock/getDirectorateFodderStock?searchQuery=",
 
+
+  // District Wise Attendance Abstract With Time
+  GetAllDistrictWiseAttendanceAbstractTime: Url + "v1/api/face_recognitio/district-attandance-abstract-report",
+
 }

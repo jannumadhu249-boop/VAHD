@@ -28,7 +28,7 @@ const DetailAttendanceReport = () => {
         institutionId: null,
         present: null,
         date: new Date().toISOString().split('T')[0],
-        time: "",
+        // time: "",
     })
 
     const presentOptions = [
@@ -36,12 +36,12 @@ const DetailAttendanceReport = () => {
         { value: "No", label: "No" },
     ]
 
-    const timeOptions = [
-        { value:"09:00 AM - 10:00 AM" , label: "09:00 AM - 10:00 AM"},
-        { value:"10:00 AM - 11:00 AM" , label: "10:00 AM - 11:00 AM"},
-        { value:"After 11:00 AM" , label: "After 11:00 AM"},
+    // const timeOptions = [
+    //     { value:"09:00 AM – 10:00 AM" , label: "09:00 AM - 10:00 AM"},
+    //     { value:"10:00 AM – 11:00 AM" , label: "10:00 AM - 11:00 AM"},
+    //     { value:"After 11:00 AM" , label: "After 11:00 AM"},
         
-    ]
+    // ]
 
     const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' })
 
@@ -125,7 +125,7 @@ const DetailAttendanceReport = () => {
             ...(filters.districtid ? { districtid: filters.districtid } : {}),
             ...(filters.institutionId ? { institutionId: filters.institutionId } : {}),
             ...(filters.present ? { search: filters.present.value } : {}),
-            timeSlot:filters.time?.value || "",
+            // timeSlot:filters.time?.value || "",
         }
         axios
             .post(URLS.GetDetailAttendanceReport, payload, {
@@ -152,7 +152,9 @@ const DetailAttendanceReport = () => {
     }
 
     const handleReset = () => {
-        setFilters({ districtid: null, institutionId: null, present: null, date: "", timeSlot: '' })
+        setFilters({ districtid: null, institutionId: null, present: null, date: "",
+            //  timeSlot: '' 
+            })
         setReportData([])
         setPlaceOfWorkingOptions([])
     }
@@ -311,7 +313,7 @@ const DetailAttendanceReport = () => {
                                                 />
                                             </div>
                                             {/* Time */}
-                                            <div style={{ minWidth: "150px" }}>
+                                            {/* <div style={{ minWidth: "150px" }}>
                                                 <Label style={styles.filterLabel}>Time</Label>
                                                 <Select
                                                     options={timeOptions}
@@ -321,7 +323,7 @@ const DetailAttendanceReport = () => {
                                                     isClearable
                                                     style={{ control: base => ({ ...base, minHeight: "34px", fontSize: "13px" }) }}
                                                 />
-                                            </div>
+                                            </div> */}
                                             {/* Date */}
                                             <div style={{ minWidth: "150px" }}>
                                                 <Label style={styles.filterLabel}>Date <span className="text-danger">*</span></Label>
@@ -406,7 +408,7 @@ const DetailAttendanceReport = () => {
                                                             <th onClick={() => requestSort('name')}>Name {getSortIcon('name')}</th>
                                                             <th onClick={() => requestSort('designation')}>Designation {getSortIcon('designation')}</th>
                                                             <th onClick={() => requestSort('institution')}>Institution {getSortIcon('institution')}</th>
-                                                            {/* <th onClick={() => requestSort('registered')}>Registered in App {getSortIcon('registered')}</th> */}
+                                                            <th onClick={() => requestSort('registered')}>Registered in App {getSortIcon('registered')}</th>
                                                             <th onClick={() => requestSort('present')}>Present {getSortIcon('present')}</th>
                                                         </tr>
                                                     </thead>
@@ -421,11 +423,11 @@ const DetailAttendanceReport = () => {
                                                                     <td>{row.designation}</td>
                                                                     <td>{row.institution}</td>
                                                                     <td>{row.registered}</td>
-                                                                    {/* <td>
+                                                                    <td>
                                                                         <span className={`badge ${row.present === "Yes" ? "bg-success" : "bg-danger"}`}>
                                                                             {row.present}
                                                                         </span>
-                                                                    </td> */}
+                                                                    </td>
                                                                 </tr>
                                                             ))
                                                         ) : (

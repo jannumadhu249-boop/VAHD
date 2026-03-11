@@ -46,6 +46,162 @@ const Reports = () => {
         <div className="d-flex justify-content-between align-items-center mb-4">
           <div>
             <h4 className="text-primary mb-0">
+              {/* <i className="bx bx-bar-chart-alt me-2"></i> */}
+              <i className='bx bx-user-check'></i>
+              Attendance Reports
+            </h4>
+          </div>
+        </div>
+
+        <>
+        <CardBody>
+          <Row>
+              {(Roles?.CompleteAttendanceReportView === true || Roles?.accessAll === true) && (
+                <Col xl="2" lg="3" md="4" sm="6" xs="6" className="mb-3">
+                  <Link
+                    to="/attendance-report"
+                    className="text-decoration-none"
+                  >
+                    <Card className="h-100 border-0 shadow-sm hover-lift transition-all">
+                      <CardBody className="p-3 text-center d-flex flex-column justify-content-between">
+                        <div className="mb-3">
+                          <div
+                            className="bg-soft-primary rounded-circle mx-auto d-flex align-items-center justify-content-center"
+                            style={{ width: 70, height: 70 }}
+                          >
+                            <i
+                              className="bx bx-folder text-primary"
+                              style={{ fontSize: "2rem" }}
+                            ></i>
+                          </div>
+                        </div>
+                        <h6 className="text-dark fw-semibold mb-0">
+                          Attendance Report
+                        </h6>
+                      </CardBody>
+                    </Card>
+                  </Link>
+                </Col>
+              )}
+
+              {(Roles?.DetailAttendanceReportView === true || Roles?.accessAll === true) && (
+                <Col xl="2" lg="3" md="4" sm="6" xs="6" className="mb-3">
+                  <Link
+                    to="/detail-attendance-report"
+                    className="text-decoration-none"
+                  >
+                    <Card className="h-100 border-0 shadow-sm hover-lift transition-all">
+                      <CardBody className="p-3 text-center d-flex flex-column justify-content-between">
+                        <div className="mb-3">
+                          <div
+                            className="bg-soft-primary rounded-circle mx-auto d-flex align-items-center justify-content-center"
+                            style={{ width: 70, height: 70 }}
+                          >
+                            <i
+                              className="bx bx-folder text-primary"
+                              style={{ fontSize: "2rem" }}
+                            ></i>
+                          </div>
+                        </div>
+                        <h6 className="text-dark fw-semibold mb-0">
+                          Detail Attendance Report
+                        </h6>
+                      </CardBody>
+                    </Card>
+                  </Link>
+                </Col>
+              )}
+
+              {(Roles?.DetailAttendanceReportView === true || Roles?.accessAll === true) && (
+                <Col xl="2" lg="3" md="4" sm="6" xs="6" className="mb-3">
+                  <Link
+                    to="/district-wise-attendance-count"
+                    className="text-decoration-none"
+                  >
+                    <Card className="h-100 border-0 shadow-sm hover-lift transition-all">
+                      <CardBody className="p-3 text-center d-flex flex-column justify-content-between">
+                        <div className="mb-3">
+                          <div
+                            className="bg-soft-primary rounded-circle mx-auto d-flex align-items-center justify-content-center"
+                            style={{ width: 70, height: 70 }}
+                          >
+                            <i
+                              className="bx bx-folder text-primary"
+                              style={{ fontSize: "2rem" }}
+                            ></i>
+                          </div>
+                        </div>
+                        <h6 className="text-dark fw-semibold mb-0">
+                          District Wise Attendance
+                        </h6>
+                      </CardBody>
+                    </Card>
+                  </Link>
+                </Col>
+              )}
+
+              {(Roles?.DetailAttendanceReportView === true || Roles?.accessAll === true) && (
+                <Col xl="2" lg="3" md="4" sm="6" xs="6" className="mb-3">
+                  <Link
+                    to="/detail-attendance-report-time"
+                    className="text-decoration-none"
+                  >
+                    <Card className="h-100 border-0 shadow-sm hover-lift transition-all">
+                      <CardBody className="p-3 text-center d-flex flex-column justify-content-between">
+                        <div className="mb-3">
+                          <div
+                            className="bg-soft-primary rounded-circle mx-auto d-flex align-items-center justify-content-center"
+                            style={{ width: 70, height: 70 }}
+                          >
+                            <i
+                              className="bx bx-folder text-primary"
+                              style={{ fontSize: "2rem" }}
+                            ></i>
+                          </div>
+                        </div>
+                        <h6 className="text-dark fw-semibold mb-0">
+                          Detail Attendance Report With Time
+                        </h6>
+                      </CardBody>
+                    </Card>
+                  </Link>
+                </Col>
+              )}
+
+              {(Roles?.DetailAttendanceReportView === true || Roles?.accessAll === true) && (
+                <Col xl="2" lg="3" md="4" sm="6" xs="6" className="mb-3">
+                  <Link
+                    to="/district-wise-attendance-count-time"
+                    className="text-decoration-none"
+                  >
+                    <Card className="h-100 border-0 shadow-sm hover-lift transition-all">
+                      <CardBody className="p-3 text-center d-flex flex-column justify-content-between">
+                        <div className="mb-3">
+                          <div
+                            className="bg-soft-primary rounded-circle mx-auto d-flex align-items-center justify-content-center"
+                            style={{ width: 70, height: 70 }}
+                          >
+                            <i
+                              className="bx bx-folder text-primary"
+                              style={{ fontSize: "2rem" }}
+                            ></i>
+                          </div>
+                        </div>
+                        <h6 className="text-dark fw-semibold mb-0">
+                          District Wise Attendace Abstract With Time 
+                        </h6>
+                      </CardBody>
+                    </Card>
+                  </Link>
+                </Col>
+              )}
+          </Row>
+        </CardBody>
+        </>
+
+        <div className="d-flex justify-content-between align-items-center mb-4">
+          <div>
+            <h4 className="text-primary mb-0">
               <i className="bx bx-bar-chart-alt me-2"></i>
               Group Reports
             </h4>
@@ -401,7 +557,7 @@ const Reports = () => {
                   </Link>
                 </Col>
               )}
-              {(Roles?.CompleteAttendanceReportView === true || Roles?.accessAll === true) && (
+              {/* {(Roles?.CompleteAttendanceReportView === true || Roles?.accessAll === true) && (
                 <Col xl="2" lg="3" md="4" sm="6" xs="6" className="mb-3">
                   <Link
                     to="/attendance-report"
@@ -481,7 +637,7 @@ const Reports = () => {
                     </Card>
                   </Link>
                 </Col>
-              )}
+              )} */}
               {(Roles?.CaseTreatedReportView === true || Roles?.accessAll === true) && (
                 <Col xl="2" lg="3" md="4" sm="6" xs="6" className="mb-3">
                   <Link

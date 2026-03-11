@@ -54,6 +54,7 @@ function EmployeeAttendanceReport() {
   const [showFilters, setShowFilters] = useState(false)
   const [listPerPage, setListPerPage] = useState(0)
   const [pageNumber, setPageNumber] = useState(1)
+  const [pageSize, setPageSize] = useState(10)
   const [totalCount, setTotalCount] = useState(0)
 
   const [filters, setFilters] = useState({
@@ -103,11 +104,24 @@ function EmployeeAttendanceReport() {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then(res => {
-          setEmployeeAttendanceReport(res?.data?.user || [])
+          const users = res?.data?.user || []
+          const serverPageSize =
+            res?.data?.pageSize ||
+            res?.data?.limit ||
+            res?.data?.perPage ||
+            0
+
+          setEmployeeAttendanceReport(users)
           setUserInCsv(res?.data?.userExcell || [])
           setListPerPage(res?.data?.totalPages || 0)
           setPageNumber(res?.data?.page || 1)
           setTotalCount(res?.data?.totalCount || 0)
+
+          if (serverPageSize) {
+            setPageSize(serverPageSize)
+          } else if (page === 1 && users.length > 0) {
+            setPageSize(users.length)
+          }
         })
         .catch(error => {
           console.error("Failed to load employee attendance report:", error)
@@ -191,7 +205,7 @@ function EmployeeAttendanceReport() {
 
       // Table data
       const tableRows = employeeAttendanceReport.map((data, index) => [
-        ((pageNumber - 1) * 10 + index + 1).toString(),
+        ((pageNumber - 1) * (pageSize || 10) + index + 1).toString(),
         data.checkinDate || "N/A",
         data.employeeId || "N/A",
         data.staffName || "N/A",
@@ -376,7 +390,7 @@ function EmployeeAttendanceReport() {
                           employeeAttendanceReport.map((data, key) => (
                             <tr key={key}>
                               <td className="text-center">
-                                {(pageNumber - 1) * 10 + key + 1}
+                                {(pageNumber - 1) * (pageSize || 10) + key + 1}
                               </td>
                               <td>{data.checkinDate || "N/A"}</td>
                               <td>{data.employeeId || "N/A"}</td>

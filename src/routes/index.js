@@ -124,6 +124,8 @@ import FodderItems from "pages/Settings/FodderItems"
 import FodderDistribution from "pages/PatientRegistration/FodderDistributionDistrict"
 import FodderDistributionState from "pages/PatientRegistration/FodderDistributionState"
 import FodderDistributionDistrict from "pages/PatientRegistration/FodderDistributionDistrict"
+import DetailAttendanceReportWithTime from "pages/EmployeeRegistation/DetailAttendanceReportWithTime"
+import DistrictWiseAttendanceCountWithTime from "pages/EmployeeRegistation/DistrictWiseAttendanceCountWithTime"
 
 const authProtectedRoutes = [
   //Dashboard
@@ -140,6 +142,12 @@ const authProtectedRoutes = [
   { path: "/sub-designation", component: SubDesignation },
   { path: "/attendance-report", component: AttendanceReport },
   { path: "/district-wise-attendance-count", component: DistrictWiseAttendanceCount },
+  
+
+  { path: "/detail-attendance-report-time", component: DetailAttendanceReportWithTime },
+  { path: "/district-wise-attendance-count-time", component: DistrictWiseAttendanceCountWithTime },
+
+
 
   //MprReport
   { path: "/add-Mpr-operation", component: AddMprOperation },
