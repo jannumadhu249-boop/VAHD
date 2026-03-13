@@ -84,6 +84,34 @@ const Reports = () => {
                 </Col>
               )}
 
+              {(Roles?.DetailEmployeeAttendanceReportView === true || Roles?.accessAll === true) && (
+                <Col xl="2" lg="3" md="4" sm="6" xs="6" className="mb-3">
+                  <Link
+                    to="/detail-employee-attendance-report"
+                    className="text-decoration-none"
+                  >
+                    <Card className="h-100 border-0 shadow-sm hover-lift transition-all">
+                      <CardBody className="p-3 text-center d-flex flex-column justify-content-between">
+                        <div className="mb-3">
+                          <div
+                            className="bg-soft-primary rounded-circle mx-auto d-flex align-items-center justify-content-center"
+                            style={{ width: 70, height: 70 }}
+                          >
+                            <i
+                              className="bx bx-folder text-primary"
+                              style={{ fontSize: "2rem" }}
+                            ></i>
+                          </div>
+                        </div>
+                        <h6 className="text-dark fw-semibold mb-0">
+                          Detail Employee Attendance Report
+                        </h6>
+                      </CardBody>
+                    </Card>
+                  </Link>
+                </Col>
+              )}
+
               {(Roles?.DetailAttendanceReportView === true || Roles?.accessAll === true) && (
                 <Col xl="2" lg="3" md="4" sm="6" xs="6" className="mb-3">
                   <Link

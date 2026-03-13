@@ -126,6 +126,7 @@ import FodderDistributionState from "pages/PatientRegistration/FodderDistributio
 import FodderDistributionDistrict from "pages/PatientRegistration/FodderDistributionDistrict"
 import DetailAttendanceReportWithTime from "pages/EmployeeRegistation/DetailAttendanceReportWithTime"
 import DistrictWiseAttendanceCountWithTime from "pages/EmployeeRegistation/DistrictWiseAttendanceCountWithTime"
+import DetailEmployeeAttendanceReport from "pages/EmployeeRegistation/DetailEmployeeAttendanceReport"
 
 const authProtectedRoutes = [
   //Dashboard
@@ -146,6 +147,7 @@ const authProtectedRoutes = [
 
   { path: "/detail-attendance-report-time", component: DetailAttendanceReportWithTime },
   { path: "/district-wise-attendance-count-time", component: DistrictWiseAttendanceCountWithTime },
+  { path: "/detail-employee-attendance-report", component: DetailEmployeeAttendanceReport },
 
 
 

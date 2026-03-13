@@ -99,7 +99,7 @@
 //   const createGoogleStylePin = useCallback(color => {
 //     const svg = `
 //       <svg xmlns="http://www.w3.org/2000/svg" width="28" height="42" viewBox="0 0 24 40">
-//         <path d="M12 0C5.4 0 0 5.4 0 12c0 6.6 12 28 12 28s12-21.4 12-28c0-6.6-5.4-12-12-12z" 
+//         <path d="M12 0C5.4 0 0 5.4 0 12c0 6.6 12 28 12 28s12-21.4 12-28c0-6.6-5.4-12-12-12z"
 //               fill="${color}" stroke="#FFFFFF" stroke-width="1"/>
 //         <circle cx="12" cy="12" r="3.5" fill="#FFFFFF"/>
 //         <circle cx="12" cy="12" r="1.5" fill="${color}"/>
@@ -532,10 +532,10 @@
 
 // export default PlaceOfWorking
 
-
 import React, { useState, useMemo, useCallback } from "react"
 import { GoogleMap, Marker, InfoWindow } from "@react-google-maps/api"
 import { Row, Col, Card, CardBody, Badge } from "reactstrap"
+// import { type } from "@testing-library/user-event/dist/types/utility"
 
 // ---------- Static Dataset ----------
 const institutionData = [
@@ -1460,7 +1460,1839 @@ const institutionData = [
     ownership: "Govt",
     remarks: "",
   },
-].filter((loc) => loc.coordinates && loc.coordinates.lat && loc.coordinates.lng)
+
+  // S.No 78
+  {
+    id: 1,
+    applicantNumber: "NLM202212010000042",
+    applicantName: "MUVVA RAMA RAO",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "7670993033",
+    district: "NALGONDA",
+    coordinates: { lat: 16.8678895, lng: 79.435929 },
+  },
+  {
+    id: 2,
+    applicantNumber: "NLM202207040000049",
+    applicantName: "ENJAM SRINIVASA REDDY",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9059862059",
+    district: "NALGONDA",
+    coordinates: { lat: 16.8199432, lng: 79.3676753 },
+  },
+  {
+    id: 3,
+    applicantNumber: "NLM202212030000034",
+    applicantName: "BAREDDY MADHAVI",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9010426162",
+    district: "NALGONDA",
+    coordinates: { lat: 16.8470879, lng: 79.3578201 },
+  },
+  {
+    id: 4,
+    applicantNumber: "NLM202201250000060",
+    applicantName: "NENAVATH BALKOTI",
+    type: "NLM",
+    category: "ST",
+    mobileNumber: "9399990916",
+    district: "NALGONDA",
+    coordinates: { lat: 16.72577, lng: 78.869075 },
+  },
+  {
+    id: 5,
+    applicantNumber: "NLM202201260000011",
+    applicantName: "KAMIREDDY NARENDAR REDDY",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9494467116",
+    district: "BHADRADRI KOTHAGUDEM",
+    coordinates: { lat: 17.6452908, lng: 80.853174 },
+  },
+  {
+    id: 6,
+    applicantNumber: "NLM202310210000215",
+    applicantName: "RAMAVATH UDAYASRI",
+    type: "NLM",
+    category: "ST",
+    mobileNumber: "9110723253",
+    district: "NALGONDA",
+    coordinates: { lat: 16.979352, lng: 79.4610945 },
+  },
+  {
+    id: 7,
+    applicantNumber: "NLM202201060000167",
+    applicantName: "MANDA RAJITHA",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9182661431",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.8354207, lng: 79.1225708 },
+  },
+  {
+    id: 8,
+    applicantNumber: "NLM202110210000022",
+    applicantName: "B Chakravarthy",
+    type: "NLM",
+    category: "Others",
+    mobileNumber: "9959925789",
+    district: "MAHABUBNAGAR",
+    coordinates: { lat: 16.7901419, lng: 78.3159411 },
+  },
+  {
+    id: 9,
+    applicantNumber: "NLM202110280000138",
+    applicantName: "KONDA BALAKISHAN",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9000477234",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.7147684, lng: 78.9113051 },
+  },
+  {
+    id: 10,
+    applicantNumber: "NLM202110300000056",
+    applicantName: "DEVA MALLAIAH",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9866285902",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.9587257, lng: 78.6729361 },
+  },
+  {
+    id: 11,
+    applicantNumber: "NLM202203310000062",
+    applicantName: "Mohammad Shafiuddin",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9848850410",
+    district: "YADADRI BHUVANAGIRI",
+    coordinates: { lat: 17.6013546, lng: 78.8427019 },
+  },
+  {
+    id: 12,
+    applicantNumber: "NLM202302050000015",
+    applicantName: "Marri Srinivas Reddy",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9849953549",
+    district: "KARIMNAGAR",
+    coordinates: { lat: 18.290746, lng: 79.531278 },
+  },
+  {
+    id: 13,
+    applicantNumber: "NLM202110270000081",
+    applicantName: "MUDAM KISHORE",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "6303047410",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.7622552, lng: 78.6131019 },
+  },
+  {
+    id: 14,
+    applicantNumber: "NLM202207230000056",
+    applicantName: "KETHAVATH RAMULU",
+    type: "NLM",
+    category: "ST",
+    mobileNumber: "8788547943",
+    district: "VIKARABAD",
+    coordinates: { lat: 17.09611, lng: 77.79372 },
+  },
+  {
+    id: 15,
+    applicantNumber: "NLM202110270000070",
+    applicantName: "GUJJULA KRISHNA",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "7702651964",
+    district: "NIRMAL",
+    coordinates: { lat: 18.9980108, lng: 78.5430269 },
+  },
+  {
+    id: 16,
+    applicantNumber: "NLM202110300000416",
+    applicantName: "BAIRA SUBHASH",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "7337456891",
+    district: "NIZAMABAD",
+    coordinates: { lat: 18.5610801, lng: 78.2547421 },
+  },
+  {
+    id: 17,
+    applicantNumber: "NLM202110300000264",
+    applicantName: "BAIRA SUNAND",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9390744447",
+    district: "NIZAMABAD",
+    coordinates: { lat: 18.6312929, lng: 78.0516232 },
+  },
+  {
+    id: 18,
+    applicantNumber: "NLM202110270000090",
+    applicantName: "NOMULA NARSIMHA REDDY",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9912008834",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.851593, lng: 78.8100882 },
+  },
+  {
+    id: 19,
+    applicantNumber: "NLM202302070000114",
+    applicantName: "KATRAVATH SAROJA CHAND",
+    type: "NLM",
+    category: "ST",
+    mobileNumber: "7711997706",
+    district: "MAHABUBNAGAR",
+    coordinates: { lat: 16.744963, lng: 77.86615 },
+  },
+  {
+    id: 20,
+    applicantNumber: "NLM202112060000046",
+    applicantName: "MOHAMMED MAQBOOL",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9989308771",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.752849, lng: 78.80499 },
+  },
+  {
+    id: 21,
+    applicantNumber: "NLM202110270000056",
+    applicantName: "GONE MAMATHA",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9553039890",
+    district: "JAGITIAL",
+    coordinates: { lat: 19.0631097, lng: 79.0201828 },
+  },
+  {
+    id: 22,
+    applicantNumber: "NLM202304180000057",
+    applicantName: "CHOUDARAPALLI MANGA",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9010345624",
+    district: "YADADRI BHUVANAGIRI",
+    coordinates: { lat: 17.661873, lng: 79.129616 },
+  },
+  {
+    id: 23,
+    applicantNumber: "NLM202111300000073",
+    applicantName: "BAIRI VINOD",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "8374707095",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.94216, lng: 78.98273 },
+  },
+  {
+    id: 24,
+    applicantNumber: "NLM202305240000080",
+    applicantName: "Yellu Ganesh",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9985458518",
+    district: "MAHABUBABAD",
+    coordinates: { lat: 17.471785, lng: 79.751755 },
+  },
+  {
+    id: 25,
+    applicantNumber: "NLM202110140000032",
+    applicantName: "B Laxminarsimha Yadav",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9985768283",
+    district: "MAHABUBNAGAR",
+    coordinates: { lat: 16.6031891, lng: 77.9788615 },
+  },
+  {
+    id: 26,
+    applicantNumber: "NLM202112080000071",
+    applicantName: "MYAKA LAXMAN",
+    type: "NLM",
+    category: "SC",
+    mobileNumber: "9441376500",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.670968, lng: 78.946599 },
+  },
+  {
+    id: 27,
+    applicantNumber: "NLM202110270000084",
+    applicantName: "Goskula Rakesh",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "7702549546",
+    district: "PEDDAPALLI",
+    coordinates: { lat: 18.4902463, lng: 79.3324733 },
+  },
+  {
+    id: 28,
+    applicantNumber: "NLM202304100000099",
+    applicantName: "GAJJALA LEELADHAR REDDY",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "7989099481",
+    district: "BHADRADRI KOTHAGUDEM",
+    coordinates: { lat: 17.792911, lng: 80.851314 },
+  },
+  {
+    id: 29,
+    applicantNumber: "NLM202305040000125",
+    applicantName: "Dursheti Rajamouli",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9959491317",
+    district: "KARIMNAGAR",
+    coordinates: { lat: 18.4976452, lng: 79.0288683 },
+  },
+  {
+    id: 30,
+    applicantNumber: "NLM202302190000039",
+    applicantName: "Dasari Padma",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9959066994",
+    district: "KARIMNAGAR",
+    coordinates: { lat: 18.2536376, lng: 79.1645312 },
+  },
+  {
+    id: 31,
+    applicantNumber: "NLM202112190000018",
+    applicantName: "Sammi Reddy Kalva",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9866050573",
+    district: "KARIMNAGAR",
+    coordinates: { lat: 18.253675, lng: 79.164588 },
+  },
+  {
+    id: 32,
+    applicantNumber: "NLM202210310000060",
+    applicantName: "Annampatla Rajeswari",
+    type: "NLM",
+    category: "SC",
+    mobileNumber: "9908518181",
+    district: "YADADRI BHUVANAGIRI",
+    coordinates: { lat: 17.33247, lng: 78.52566 },
+  },
+  {
+    id: 33,
+    applicantNumber: "NLM202110290000218",
+    applicantName: "GOGURI GOPAL REDDY",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9989455070",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.5896723, lng: 78.9417242 },
+  },
+  {
+    id: 34,
+    applicantNumber: "NLM202110280000023",
+    applicantName: "KASARAPU PRAVEEN KUMAR",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9000414414",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.7860799, lng: 79.0434945 },
+  },
+  {
+    id: 35,
+    applicantNumber: "NLM202110240000053",
+    applicantName: "BEDADHA BHEEMANNA",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9440615102",
+    district: "NIRMAL",
+    coordinates: { lat: 19.0903411, lng: 78.8803676 },
+  },
+  {
+    id: 36,
+    applicantNumber: "NLM202112080000015",
+    applicantName: "RAMCHANDRAM BANDARI",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9440139637",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.950439, lng: 78.753016 },
+  },
+  {
+    id: 37,
+    applicantNumber: "NLM202110080000017",
+    applicantName: "DEVASANI THIRUPATHI REDDY",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9705996699",
+    district: "KARIMNAGAR",
+    coordinates: { lat: 18.2854716, lng: 79.1600383 },
+  },
+  {
+    id: 38,
+    applicantNumber: "NLM202110260000076",
+    applicantName: "ANNAMANENI SANDEEP RAO",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9097966666",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.8693082, lng: 79.0215352 },
+  },
+  {
+    id: 39,
+    applicantNumber: "NLM202110210000050",
+    applicantName: "Karne Rajendar",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9959234208",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.8261658, lng: 78.8477259 },
+  },
+  {
+    id: 40,
+    applicantNumber: "NLM202304280000025",
+    applicantName: "AVANAGANTI SRAVAN",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9182418674",
+    district: "NALGONDA",
+    coordinates: { lat: 16.9655492, lng: 79.2845772 },
+  },
+  {
+    id: 41,
+    applicantNumber: "NLM202202180000048",
+    applicantName: "DARMASOTH HARILAL",
+    type: "NLM",
+    category: "ST",
+    mobileNumber: "9740252642",
+    district: "MAHABUBABAD",
+    coordinates: { lat: 17.4758696, lng: 79.8690484 },
+  },
+  {
+    id: 42,
+    applicantNumber: "NLM202201060000159",
+    applicantName: "MANDHA VENKATA RAMANA REDDY",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9490004210",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.8240418, lng: 79.1167232 },
+  },
+  {
+    id: 43,
+    applicantNumber: "NLM202204050000007",
+    applicantName: "GADDAM KAVITHA",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "8500959204",
+    district: "NALGONDA",
+    coordinates: { lat: 16.9429627, lng: 79.2155073 },
+  },
+  {
+    id: 44,
+    applicantNumber: "NLM202110300000336",
+    applicantName: "KURMILLA RAGHURAM MURTHY",
+    type: "NLM",
+    category: "SC",
+    mobileNumber: "9494444366",
+    district: "NALGONDA",
+    coordinates: { lat: 17.2040839, lng: 79.1964876 },
+  },
+  {
+    id: 45,
+    applicantNumber: "NLM202110300000090",
+    applicantName: "NAKKA VIJAY BABU",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "8686862231",
+    district: "NIZAMABAD",
+    coordinates: { lat: 18.6353506, lng: 77.8834191 },
+  },
+  {
+    id: 46,
+    applicantNumber: "NLM202301100000042",
+    applicantName: "POREDDY VENKAT REDDY",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "8686223456",
+    district: "NALGONDA",
+    coordinates: { lat: 17.0593323, lng: 79.5034293 },
+  },
+  {
+    id: 47,
+    applicantNumber: "NLM202202120000093",
+    applicantName: "Sankineni Sunil Kumar",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9395151004",
+    district: "KARIMNAGAR",
+    coordinates: { lat: 18.45008, lng: 79.18526 },
+  },
+  {
+    id: 48,
+    applicantNumber: "NLM202110290000007",
+    applicantName: "THATIPARTHI RAMCHANDRA REDDY",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9440666699",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.6672414, lng: 78.9099055 },
+  },
+  {
+    id: 49,
+    applicantNumber: "NLM202306280000091",
+    applicantName: "KUMBAM MADAN GOPAL REDDY",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "7893412601",
+    district: "NALGONDA",
+    coordinates: { lat: 16.8855151, lng: 78.9585208 },
+  },
+  {
+    id: 50,
+    applicantNumber: "NLM202302080000189",
+    applicantName: "Jillala Sudhakar",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9989795345",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.896393, lng: 78.812733 },
+  },
+  {
+    id: 51,
+    applicantNumber: "NLM202201110000063",
+    applicantName: "Maidam Thirupathi",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "8328668572",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.970055, lng: 79.095762 },
+  },
+  {
+    id: 52,
+    applicantNumber: "NLM202203140000085",
+    applicantName: "BADDAM SANJEEV REDDY",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9948242486",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.809646, lng: 78.59938 },
+  },
+  {
+    id: 53,
+    applicantNumber: "NLM202110290000212",
+    applicantName: "MITTAPELLY THIRUPATHI",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9676954767",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.8479829, lng: 78.8292391 },
+  },
+  {
+    id: 54,
+    applicantNumber: "NLM202202270000072",
+    applicantName: "Katipelli Dayananda Reddy",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9849220765",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.72384, lng: 78.86298 },
+  },
+  {
+    id: 55,
+    applicantNumber: "NLM202305170000040",
+    applicantName: "Polisu Sangameshwar",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9000291626",
+    district: "SANGAREDDY",
+    coordinates: { lat: 17.6075232, lng: 78.0798191 },
+  },
+  {
+    id: 56,
+    applicantNumber: "NLM202304210000041",
+    applicantName: "Kola Manjula",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9100589110",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.970974, lng: 79.076972 },
+  },
+  {
+    id: 57,
+    applicantNumber: "NLM202201290000037",
+    applicantName: "Pulipalupula Andalu",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9182508007",
+    district: "YADADRI BHUVANAGIRI",
+    coordinates: { lat: 17.361364, lng: 79.12921 },
+  },
+  {
+    id: 58,
+    applicantNumber: "NLM202204050000008",
+    applicantName: "GADDAM JAYASREE",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9440044143",
+    district: "NALGONDA",
+    coordinates: { lat: 16.9429627, lng: 79.2155073 },
+  },
+  {
+    id: 59,
+    applicantNumber: "NLM202202260000010",
+    applicantName: "GUGGILLA THIRUPATHI",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9492201633",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.727368, lng: 78.847297 },
+  },
+  {
+    id: 60,
+    applicantNumber: "NLM202212290000091",
+    applicantName: "KONGARI  THIRUPATHI",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9440740687",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.908738, lng: 78.823374 },
+  },
+  {
+    id: 61,
+    applicantNumber: "NLM202110210000006",
+    applicantName: "MADHAVI BHANOTHU",
+    type: "NLM",
+    category: "ST",
+    mobileNumber: "8309050103",
+    district: "JANGOAN",
+    coordinates: { lat: 17.6113801, lng: 79.3991697 },
+  },
+  {
+    id: 62,
+    applicantNumber: "NLM202305020000060",
+    applicantName: "KESABONI SHIVA",
+    type: "NLM",
+    category: "Others",
+    mobileNumber: "6305302778",
+    district: "RANGA REDDY",
+    coordinates: { lat: 16.82425, lng: 78.725793 },
+  },
+  {
+    id: 63,
+    applicantNumber: "NLM202301160000102",
+    applicantName: "Sowmya Ontela",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9493264486",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.5913036, lng: 78.9557709 },
+  },
+  {
+    id: 64,
+    applicantNumber: "NLM202203260000062",
+    applicantName: "JELLA ANJANEYULU",
+    type: "NLM",
+    category: "Others",
+    mobileNumber: "9849741909",
+    district: "RANGA REDDY",
+    coordinates: { lat: 16.8335256, lng: 78.7196358 },
+  },
+  {
+    id: 65,
+    applicantNumber: "NLM202110280000041",
+    applicantName: "MERUGU RAJESHAM",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9866159617",
+    district: "MANCHERIAL",
+    coordinates: { lat: 18.8496383, lng: 79.6754694 },
+  },
+  {
+    id: 66,
+    applicantNumber: "NLM202110300000437",
+    applicantName: "GUNTI DEVAIAH",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9440002643",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.948383, lng: 78.63178 },
+  },
+  {
+    id: 67,
+    applicantNumber: "NLM202110300000357",
+    applicantName: "Damuka Jayachander",
+    type: "NLM",
+    category: "SC",
+    mobileNumber: "7386454580",
+    district: "PEDDAPALLI",
+    coordinates: { lat: 18.7756948, lng: 79.7071384 },
+  },
+  {
+    id: 68,
+    applicantNumber: "NLM202206080000009",
+    applicantName: "GAJJI SHIRISHA",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9505631147",
+    district: "NALGONDA",
+    coordinates: { lat: 16.8199432, lng: 79.3676753 },
+  },
+  {
+    id: 69,
+    applicantNumber: "NLM202203170000038",
+    applicantName: "CHIKYALA DHEERAJ RAO",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "7893308611",
+    district: "NIRMAL",
+    coordinates: { lat: 19.07988, lng: 78.517277 },
+  },
+  {
+    id: 70,
+    applicantNumber: "NLM202305070000005",
+    applicantName: "Padidam Malla Reddy",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9849944016",
+    district: "WARANGAL",
+    coordinates: { lat: 17.8901934, lng: 79.7091368 },
+  },
+  {
+    id: 71,
+    applicantNumber: "NLM202306280000067",
+    applicantName: "CHANAMOLU SRINIVASA RAO",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9848264642",
+    district: "KHAMMAM",
+    coordinates: { lat: 17.245515, lng: 80.151754 },
+  },
+  {
+    id: 72,
+    applicantNumber: "NLM202401100000023",
+    applicantName: "Baddam Padma",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9441154201",
+    district: "NIZAMABAD",
+    coordinates: { lat: 18.871832, lng: 78.511387 },
+  },
+  {
+    id: 73,
+    applicantNumber: "NLM202401010000145",
+    applicantName: "BADDAM LAXMI",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "8886847338",
+    district: "NIZAMABAD",
+    coordinates: { lat: 18.881571, lng: 78.50949 },
+  },
+  {
+    id: 74,
+    applicantNumber: "NLM202208290000025",
+    applicantName: "KOMMINENI MUDDU KRISHNA",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9848053010",
+    district: "SURYAPET",
+    coordinates: { lat: 17.0982621, lng: 79.8903454 },
+  },
+  {
+    id: 75,
+    applicantNumber: "NLM202308060000089",
+    applicantName: "Goguri Sumalatha",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "8885433457",
+    district: "RAJANNA SIRCILLA",
+    coordinates: { lat: 18.268481, lng: 78.952532 },
+  },
+  {
+    id: 76,
+    applicantNumber: "NLM202204160000044",
+    applicantName: "GADDAM RAJESHAM GOUD",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9440393318",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.8094747, lng: 78.7542578 },
+  },
+  {
+    id: 77,
+    applicantNumber: "NLM202110190000035",
+    applicantName: "musku  karunakar reddy",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9491322833",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.787587, lng: 79.044201 },
+  },
+  {
+    id: 78,
+    applicantNumber: "NLM202312030000040",
+    applicantName: "MD ANWAR PASHA",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9849008361",
+    district: "HANUMAKONDA",
+    coordinates: { lat: 17.884804, lng: 79.502902 },
+  },
+  {
+    id: 79,
+    applicantNumber: "NLM202110230000064",
+    applicantName: "MADHUKAR SRIRAM",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9241361461",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.575312, lng: 78.984069 },
+  },
+  {
+    id: 80,
+    applicantNumber: "NLM202110260000068",
+    applicantName: "GUDA SOUJANYA",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9705228287",
+    district: "KARIMNAGAR",
+    coordinates: { lat: 18.443437, lng: 79.156793 },
+  },
+  {
+    id: 81,
+    applicantNumber: "NLM202110280000005",
+    applicantName: "R SATYA NARAYANA REDDY",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9959649731",
+    district: "JOGULAMBA GADWAL",
+    coordinates: { lat: 16.2007176, lng: 77.8790661 },
+  },
+  {
+    id: 82,
+    applicantNumber: "NLM202112100000055",
+    applicantName: "GUDI ANANTHA REDDY",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9441758318",
+    district: "KARIMNAGAR",
+    coordinates: { lat: 18.569161, lng: 79.015445 },
+  },
+  {
+    id: 83,
+    applicantNumber: "NLM202211170000045",
+    applicantName: "ERRABELLI RAJA RAO",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "8500597911",
+    district: "WARANGAL URBAN",
+    coordinates: { lat: 17.833596, lng: 79.621498 },
+  },
+  {
+    id: 84,
+    applicantNumber: "NLM202110140000057",
+    applicantName: "MARADWAR PRAVEENKUMAR",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9491004400",
+    district: "KAMAREDDY",
+    coordinates: { lat: 18.5041884, lng: 77.6598762 },
+  },
+  {
+    id: 85,
+    applicantNumber: "NLM202302050000023",
+    applicantName: "Polneni Vijaya",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9989765889",
+    district: "KARIMNAGAR",
+    coordinates: { lat: 18.293369, lng: 79.487893 },
+  },
+  {
+    id: 86,
+    applicantNumber: "NLM202110300000293",
+    applicantName: "Dyava Amar",
+    type: "NLM",
+    category: "Others",
+    mobileNumber: "9494997072",
+    district: "KARIMNAGAR",
+    coordinates: { lat: 18.6084163, lng: 79.0998895 },
+  },
+  {
+    id: 87,
+    applicantNumber: "NLM202110270000085",
+    applicantName: "THOTA RAJA SHEKAR",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9573907040",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.948148, lng: 78.755419 },
+  },
+  {
+    id: 88,
+    applicantNumber: "NLM202110260000072",
+    applicantName: "GUDA MALLA  REDDY",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9494788077",
+    district: "KARIMNAGAR",
+    coordinates: { lat: 18.4465815, lng: 79.1606735 },
+  },
+  {
+    id: 89,
+    applicantNumber: "NLM202110270000033",
+    applicantName: "GADDAM SRINIVAS",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9949826515",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.973327, lng: 78.765154 },
+  },
+  {
+    id: 90,
+    applicantNumber: "NLM202303290000163",
+    applicantName: "BUSIREDDY RAM MOHAN REDDY",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "8790074655",
+    district: "NALGONDA",
+    coordinates: { lat: 17.232025, lng: 79.1261474 },
+  },
+  {
+    id: 91,
+    applicantNumber: "NLM202212020000046",
+    applicantName: "BEDADHA VENKATESH",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9502432136",
+    district: "MANCHERIAL",
+    coordinates: { lat: 19.11726, lng: 78.981919 },
+  },
+  {
+    id: 92,
+    applicantNumber: "NLM202110300000022",
+    applicantName: "GOLLA RAJU",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9493594388",
+    district: "MEDAK",
+    coordinates: { lat: 17.5355294, lng: 78.9380218 },
+  },
+  {
+    id: 93,
+    applicantNumber: "NLM202202010000088",
+    applicantName: "Neelagiri Ganga Rao",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9949595520",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.470618, lng: 79.10667 },
+  },
+  {
+    id: 94,
+    applicantNumber: "NLM202110220000058",
+    applicantName: "HANMANDLA MANJULATHA",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9701622155",
+    district: "KARIMNAGAR",
+    coordinates: { lat: 18.265346, lng: 79.1455048 },
+  },
+  {
+    id: 95,
+    applicantNumber: "NLM202110300000201",
+    applicantName: "Vontela Krishna Reddy",
+    type: "NLM",
+    category: "Others",
+    mobileNumber: "9440406202",
+    district: "KARIMNAGAR",
+    coordinates: { lat: 18.5494016, lng: 79.0935756 },
+  },
+  {
+    id: 96,
+    applicantNumber: "NLM202303100000021",
+    applicantName: "RAJI REDDY KESHI REDDY",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9849211486",
+    district: "JANGOAN",
+    coordinates: { lat: 17.903886, lng: 79.308674 },
+  },
+  {
+    id: 97,
+    applicantNumber: "NLM202204050000001",
+    applicantName: "Mallesh Pilli",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "8464861430",
+    district: "NALGONDA",
+    coordinates: { lat: 16.722657, lng: 79.016002 },
+  },
+  {
+    id: 98,
+    applicantNumber: "NLM202111250000016",
+    applicantName: "NAVVA THIRUPATHI",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "8008105005",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.790772, lng: 79.053663 },
+  },
+  {
+    id: 99,
+    applicantNumber: "NLM202302170000055",
+    applicantName: "Narra Sridhar Reddy",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9704834560",
+    district: "NALGONDA",
+    coordinates: { lat: 17.1835282, lng: 79.2590868 },
+  },
+  {
+    id: 100,
+    applicantNumber: "NLM202310150000121",
+    applicantName: "MANUKA MALLESHAM",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9440459419",
+    district: "RAJANNA SIRCILLA",
+    coordinates: { lat: 18.37118, lng: 78.70717 },
+  },
+  {
+    id: 101,
+    applicantNumber: "NLM202205170000063",
+    applicantName: "KILARU HYMAVATHI",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9346134488",
+    district: "KHAMMAM",
+    coordinates: { lat: 17.3598943, lng: 80.1280594 },
+  },
+  {
+    id: 102,
+    applicantNumber: "NLM202303280000149",
+    applicantName: "GUTTEDAR ASHWINI NARAYAN",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9949609327",
+    district: "HANUMAKONDA",
+    coordinates: { lat: 17.9295, lng: 79.470543 },
+  },
+  {
+    id: 103,
+    applicantNumber: "NLM202304260000153",
+    applicantName: "Cheemala Anitha",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9866969956",
+    district: "RANGA REDDY",
+    coordinates: { lat: 17.083395, lng: 78.768784 },
+  },
+  {
+    id: 104,
+    applicantNumber: "NLM202209260000040",
+    applicantName: "KAMIREDDY VENKATA REDDY",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9985393799",
+    district: "BHADRADRI KOTHAGUDEM",
+    coordinates: { lat: 17.619802, lng: 80.830435 },
+  },
+  {
+    id: 105,
+    applicantNumber: "NLM202307280000146",
+    applicantName: "BOINI VIJAY SAGAR",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9849551649",
+    district: "PEDDAPALLI",
+    coordinates: { lat: 18.6389593, lng: 79.3705403 },
+  },
+  {
+    id: 106,
+    applicantNumber: "NLM202110300000244",
+    applicantName: "MADHAVAREDDY BUCHIBABU",
+    type: "NLM",
+    category: "Others",
+    mobileNumber: "9849119225",
+    district: "KHAMMAM",
+    coordinates: { lat: 17.3583409, lng: 80.1280286 },
+  },
+  {
+    id: 107,
+    applicantNumber: "NLM202110250000034",
+    applicantName: "TALLAPUREDDY NAGIREDDY",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9948304824",
+    district: "KHAMMAM",
+    coordinates: { lat: 16.8946833, lng: 80.4804485 },
+  },
+  {
+    id: 108,
+    applicantNumber: "NLM202110290000018",
+    applicantName: "AZMEERA RAVI",
+    type: "NLM",
+    category: "ST",
+    mobileNumber: "9908153544",
+    district: "KHAMMAM",
+    coordinates: { lat: 17.3519571, lng: 79.9389219 },
+  },
+  {
+    id: 109,
+    applicantNumber: "NLM202202110000042",
+    applicantName: "Srihari Sriperambudur",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9989603199",
+    district: "RANGA REDDY",
+    coordinates: { lat: 17.1604626, lng: 78.720695 },
+  },
+  {
+    id: 110,
+    applicantNumber: "NLM202110270000019",
+    applicantName: "Angampally Goverdhan Sanjeev",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9849522567",
+    district: "MAHABUBNAGAR",
+    coordinates: { lat: 16.8758041, lng: 78.1528568 },
+  },
+  {
+    id: 111,
+    applicantNumber: "NLM202110230000043",
+    applicantName: "KANKANALA RAM REDDY",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9490162302",
+    district: "MAHABUBNAGAR",
+    coordinates: { lat: 16.6426151, lng: 78.1042905 },
+  },
+  {
+    id: 112,
+    applicantNumber: "NLM202303080000111",
+    applicantName: "MATLA LINGAM",
+    type: "NLM",
+    category: "SC",
+    mobileNumber: "9440006498",
+    district: "SIDDIPET",
+    coordinates: { lat: 18.126683, lng: 79.03667 },
+  },
+  {
+    id: 113,
+    applicantNumber: "NLM202110170000005",
+    applicantName: "JAMMULA LAXMI NARAYANA REDDY",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9494946228",
+    district: "MAHABUBNAGAR",
+    coordinates: { lat: 16.5035238, lng: 77.8132713 },
+  },
+  {
+    id: 114,
+    applicantNumber: "NLM202202150000026",
+    applicantName: "RRR HITECH FARMS LLP",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9440885504",
+    district: "NALGONDA",
+    coordinates: { lat: 16.876641, lng: 79.291752 },
+  },
+  {
+    id: 115,
+    applicantNumber: "NLM202202150000031",
+    applicantName: "RIKKALA HYMAVATHI",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9849264647",
+    district: "NALGONDA",
+    coordinates: { lat: 16.876641, lng: 79.291752 },
+  },
+  {
+    id: 116,
+    applicantNumber: "NLM202201190000116",
+    applicantName: "SURASANI SAHITYA",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9848476657",
+    district: "MEDCHAL MALKAJGIRI",
+    coordinates: { lat: 17.5767289, lng: 78.6169979 },
+  },
+  {
+    id: 117,
+    applicantNumber: "NLM202111250000043",
+    applicantName: "VASTHAPURI MANGAMMA",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "8500233239",
+    district: "NALGONDA",
+    coordinates: { lat: 16.592822, lng: 79.387502 },
+  },
+  {
+    id: 118,
+    applicantNumber: "NLM202111080000023",
+    applicantName: "N SRINIVASULU",
+    type: "NLM",
+    category: "SC",
+    mobileNumber: "9440845150",
+    district: "NAGARKURNOOL",
+    coordinates: { lat: 16.7411, lng: 78.5622949 },
+  },
+  {
+    id: 119,
+    applicantNumber: "NLM202203080000053",
+    applicantName: "SABAVATH SHANKAR NAYAK",
+    type: "NLM",
+    category: "ST",
+    mobileNumber: "9866727504",
+    district: "JAYASHANKAR BHUPALAPALLY",
+    coordinates: { lat: 18.34204, lng: 79.53232 },
+  },
+  {
+    id: 120,
+    applicantNumber: "NLM202112040000032",
+    applicantName: "PRANEETH KUMAR MARKA",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9392711412",
+    district: "NAGARKURNOOL",
+    coordinates: { lat: 16.3326783, lng: 78.49062 },
+  },
+  {
+    id: 121,
+    applicantNumber: "NLM202110220000033",
+    applicantName: "VADTHYA DEVENDAR NAIK",
+    type: "NLM",
+    category: "ST",
+    mobileNumber: "9491000199",
+    district: "NALGONDA",
+    coordinates: { lat: 16.7774668, lng: 78.8932824 },
+  },
+  {
+    id: 122,
+    applicantNumber: "NLM202110160000013",
+    applicantName: "DR MUVVA RAMA RAO",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9441993033",
+    district: "NALGONDA",
+    coordinates: { lat: 16.8680433, lng: 79.4226283 },
+  },
+  {
+    id: 123,
+    applicantNumber: "NLM202110290000141",
+    applicantName: "Malka Sharadha",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9849202889",
+    district: "PEDDAPALLI",
+    coordinates: { lat: 18.6983052, lng: 79.4384519 },
+  },
+  {
+    id: 124,
+    applicantNumber: "NLM202205090000048",
+    applicantName: "Kondagorla Rajabapu",
+    type: "NLM",
+    category: "SC",
+    mobileNumber: "7673967391",
+    district: "JAYASHANKAR BHUPALAPALLY",
+    coordinates: { lat: 18.633005, lng: 79.9387091 },
+  },
+  {
+    id: 125,
+    applicantNumber: "NLM202201180000107",
+    applicantName: "KURMA PRABHAKAR",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9676815907",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.868712, lng: 78.766571 },
+  },
+  {
+    id: 126,
+    applicantNumber: "NLM202112230000025",
+    applicantName: "LALCHAVULA RAJANNA",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9951809040",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.921048, lng: 78.844758 },
+  },
+  {
+    id: 127,
+    applicantNumber: "NLM202112080000023",
+    applicantName: "SRI VALLI SHEEP FARM proprietor Surathani Mallareddy",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9848911220",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.904405, lng: 78.874638 },
+  },
+  {
+    id: 128,
+    applicantNumber: "NLM202307060000023",
+    applicantName: "RASAMALLA RAMA RAO",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9505739363",
+    district: "NALGONDA",
+    coordinates: { lat: 16.8424043, lng: 79.3937162 },
+  },
+  {
+    id: 129,
+    applicantNumber: "NLM202211010000030",
+    applicantName: "GANGIREDDY SRINIVASAREDDY",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9490370182",
+    district: "BHADRADRI KOTHAGUDEM",
+    coordinates: { lat: 17.663678, lng: 80.729432 },
+  },
+  {
+    id: 130,
+    applicantNumber: "NLM202209040000007",
+    applicantName: "S MANJULA REDDY",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9000973666",
+    district: "RANGA REDDY",
+    coordinates: { lat: 16.7919576, lng: 78.700019 },
+  },
+  {
+    id: 131,
+    applicantNumber: "NLM202110290000214",
+    applicantName: "Malka Chandrakala",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "7901005100",
+    district: "PEDDAPALLI",
+    coordinates: { lat: 18.6984645, lng: 79.4385055 },
+  },
+  {
+    id: 132,
+    applicantNumber: "NLM202207040000047",
+    applicantName: "ENJAM KAVYA",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9381742207",
+    district: "NALGONDA",
+    coordinates: { lat: 16.8199432, lng: 79.3676753 },
+  },
+  {
+    id: 133,
+    applicantNumber: "NLM202110300000281",
+    applicantName: "VELPULA RAJU",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "6302849211",
+    district: "RAJANNA SIRCILLA",
+    coordinates: { lat: 18.3629524, lng: 78.9109665 },
+  },
+  {
+    id: 134,
+    applicantNumber: "NLM202211220000003",
+    applicantName: "ANDHE RAVI",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "8801235678",
+    district: "NALGONDA",
+    coordinates: { lat: 17.0247216, lng: 79.3363462 },
+  },
+  {
+    id: 135,
+    applicantNumber: "NLM202206250000004",
+    applicantName: "POLUSANI SUNIL",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9000571119",
+    district: "MULUGU",
+    coordinates: { lat: 18.2439639, lng: 79.8556064 },
+  },
+  {
+    id: 136,
+    applicantNumber: "NLM202301270000046",
+    applicantName: "V NARASIMHA",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9704859368",
+    district: "NALGONDA",
+    coordinates: { lat: 16.7230536, lng: 79.3374024 },
+  },
+  {
+    id: 137,
+    applicantNumber: "NLM202211250000056",
+    applicantName: "BOMMAGANI NAGESH GOUD",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9959933345",
+    district: "YADADRI BHUVANAGIRI",
+    coordinates: { lat: 17.682217, lng: 78.959959 },
+  },
+  {
+    id: 138,
+    applicantNumber: "NLM202112150000107",
+    applicantName: "SHYAMALAIAH",
+    type: "NLM",
+    category: "SC",
+    mobileNumber: "9121010798",
+    district: "NARAYANPET",
+    coordinates: { lat: 16.8353993, lng: 77.6915171 },
+  },
+  {
+    id: 139,
+    applicantNumber: "NLM202110280000022",
+    applicantName: "Ravikumar Moortala",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "8886812172",
+    district: "MULUGU",
+    coordinates: { lat: 18.195379, lng: 79.9842202 },
+  },
+  {
+    id: 140,
+    applicantNumber: "NLM202110300000106",
+    applicantName: "PENJARLA RAMESH",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9866029135",
+    district: "RAJANNA SIRCILLA",
+    coordinates: { lat: 18.3428296, lng: 78.6196789 },
+  },
+  {
+    id: 141,
+    applicantNumber: "NLM202110270000077",
+    applicantName: "KOUDAGANI SATHYANARAYANA",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9441534404",
+    district: "RAJANNA SIRCILLA",
+    coordinates: { lat: 18.4766553, lng: 78.9339482 },
+  },
+  {
+    id: 142,
+    applicantNumber: "NLM202202280000106",
+    applicantName: "sathaiah palakurla",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9177922623",
+    district: "RANGA REDDY",
+    coordinates: { lat: 16.8990188, lng: 78.6588442 },
+  },
+  {
+    id: 143,
+    applicantNumber: "NLM202110300000181",
+    applicantName: "N SREEDHAR REDDY",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9912118343",
+    district: "RANGA REDDY",
+    coordinates: { lat: 17.194725, lng: 78.5845143 },
+  },
+  {
+    id: 144,
+    applicantNumber: "NLM202202020000077",
+    applicantName: "RAMPRASAD REDDY KATIPALLY",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9949988355",
+    district: "RANGA REDDY",
+    coordinates: { lat: 17.1388498, lng: 78.7283221 },
+  },
+  {
+    id: 145,
+    applicantNumber: "NLM202111260000080",
+    applicantName: "MURARISHETTY SUDHAKAR",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9100937934",
+    district: "NALGONDA",
+    coordinates: { lat: 17.076458, lng: 79.33895 },
+  },
+  {
+    id: 146,
+    applicantNumber: "NLM202110290000226",
+    applicantName: "Joginapally Kishan Rao",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9035218680",
+    district: "SANGAREDDY",
+    coordinates: { lat: 17.6044456, lng: 77.5588514 },
+  },
+  {
+    id: 147,
+    applicantNumber: "NLM202304040000059",
+    applicantName: "GOVINDAPUR RATNA MALA",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9550721144",
+    district: "VIKARABAD",
+    coordinates: { lat: 17.165632, lng: 77.790082 },
+  },
+  {
+    id: 148,
+    applicantNumber: "NLM202110300000078",
+    applicantName: "SRINIVAS YADAV KAMBALAPALLI",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "8074270273",
+    district: "SURYAPET",
+    coordinates: { lat: 17.2879347, lng: 79.5278507 },
+  },
+  {
+    id: 149,
+    applicantNumber: "NLM202110300000154",
+    applicantName: "K yadagiri",
+    type: "NLM",
+    category: "ST",
+    mobileNumber: "9440083874",
+    district: "NIZAMABAD",
+    coordinates: { lat: 18.492241, lng: 78.15861 },
+  },
+  {
+    id: 150,
+    applicantNumber: "NLM202110290000096",
+    applicantName: "M PURNENDAR RAO",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9848483284",
+    district: "SURYAPET",
+    coordinates: { lat: 16.9337122, lng: 79.9928738 },
+  },
+  {
+    id: 151,
+    applicantNumber: "NLM202207170000008",
+    applicantName: "PILLALAMARRI VEERAIAH",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "8985555891",
+    district: "NALGONDA",
+    coordinates: { lat: 17.1647223, lng: 79.4274672 },
+  },
+  {
+    id: 152,
+    applicantNumber: "NLM202110140000064",
+    applicantName: "Sangi Krishna",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "8686863539",
+    district: "WARANGAL",
+    coordinates: { lat: 18.029507, lng: 79.642185 },
+  },
+  {
+    id: 153,
+    applicantNumber: "NLM202303020000044",
+    applicantName: "KOLA GANGADHAR",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9989719827",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.97093, lng: 79.076961 },
+  },
+  {
+    id: 154,
+    applicantNumber: "NLM202303020000026",
+    applicantName: "MYDAM DUBBAIAH",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "8106055025",
+    district: "JAGITIAL",
+    coordinates: { lat: 18.97021, lng: 79.097072 },
+  },
+  {
+    id: 155,
+    applicantNumber: "NLM202110240000028",
+    applicantName: "MOTAPALUKULA LAXMI NARAYANA",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "8247895857",
+    district: "MANCHERIAL",
+    coordinates: { lat: 19.0852789, lng: 79.0062289 },
+  },
+  {
+    id: 156,
+    applicantNumber: "NLM202207290000022",
+    applicantName: "BANDA NARENDER REDDY",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9100101188",
+    district: "NALGONDA",
+    coordinates: { lat: 17.2040839, lng: 79.1964876 },
+  },
+  {
+    id: 157,
+    applicantNumber: "NLM202109250000014",
+    applicantName: "Kalal Ravinder Goud",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9618940408",
+    district: "VIKARABAD",
+    coordinates: { lat: 16.6286934, lng: 77.6009715 },
+  },
+  {
+    id: 158,
+    applicantNumber: "NLM202302160000037",
+    applicantName: "JALADI RAVI KUMAR",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9502845891",
+    district: "KHAMMAM",
+    coordinates: { lat: 17.2907864, lng: 80.2043254 },
+  },
+  {
+    id: 159,
+    applicantNumber: "NLM202110210000005",
+    applicantName: "GILLELA AMARENDER REDDY",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9701230844",
+    district: "WANAPARTHY",
+    coordinates: { lat: 16.3406336, lng: 78.1316779 },
+  },
+  {
+    id: 160,
+    applicantNumber: "NLM202110230000086",
+    applicantName: "KASHETTI LAXMAN",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9441816360",
+    district: "MANCHERIAL",
+    coordinates: { lat: 19.0916976, lng: 79.0117405 },
+  },
+  {
+    id: 161,
+    applicantNumber: "NLM202110180000022",
+    applicantName: "GOTTIMUKKULA RAGHOTHAM REDDY",
+    type: "NLM",
+    category: "Others",
+    mobileNumber: "9848054377",
+    district: "WARANGAL",
+    coordinates: { lat: 18.0698448, lng: 79.9193736 },
+  },
+  {
+    id: 162,
+    applicantNumber: "NLM202211110000013",
+    applicantName: "CHANDRAPAL REDDY MUNUGALA",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9888760999",
+    district: "RANGA REDDY",
+    coordinates: { lat: 17.001491, lng: 78.3753236 },
+  },
+  {
+    id: 163,
+    applicantNumber: "NLM202306280000117",
+    applicantName: "MARRI SUSHMA GOPAL",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9951638060",
+    district: "RANGA REDDY",
+    coordinates: { lat: 16.8937148, lng: 78.3427273 },
+  },
+  {
+    id: 164,
+    applicantNumber: "NLM202202080000051",
+    applicantName: "RAJINI PERAM",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "7981901850",
+    district: "MANCHERIAL",
+    coordinates: { lat: 18.89403, lng: 79.261464 },
+  },
+  {
+    id: 165,
+    applicantNumber: "NLM202201190000014",
+    applicantName: "VINDYALA GOVARDHAN REDDY",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9010203292",
+    district: "NAGARKURNOOL",
+    coordinates: { lat: 16.589258, lng: 78.298574 },
+  },
+  {
+    id: 166,
+    applicantNumber: "NLM202112180000004",
+    applicantName: "Vendi Ravindar",
+    type: "NLM",
+    category: "SC",
+    mobileNumber: "9949633518",
+    district: "WARANGAL",
+    coordinates: { lat: 18.074568, lng: 79.8217952 },
+  },
+  {
+    id: 167,
+    applicantNumber: "NLM202204270000052",
+    applicantName: "Gugulothu Salamma",
+    type: "NLM",
+    category: "ST",
+    mobileNumber: "8520807736",
+    district: "MAHABUBABAD",
+    coordinates: { lat: 17.6310071, lng: 79.7553943 },
+  },
+  {
+    id: 168,
+    applicantNumber: "NLM202110300000245",
+    applicantName: "Kanugula Ganitha",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9912785366",
+    district: "WARANGAL",
+    coordinates: { lat: 18.0455231, lng: 79.7856449 },
+  },
+  {
+    id: 169,
+    applicantNumber: "NLM202110300000271",
+    applicantName: "KAIRIKA KOMURAIAH",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9550891324",
+    district: "WARANGAL URBAN",
+    coordinates: { lat: 17.9646199, lng: 79.3102432 },
+  },
+  {
+    id: 170,
+    applicantNumber: "NLM202112220000023",
+    applicantName: "KARABU GOPAL RAO",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "8919130853",
+    district: "WARANGAL URBAN",
+    coordinates: { lat: 18.1886174, lng: 79.5372034 },
+  },
+  {
+    id: 171,
+    applicantNumber: "NLM202110120000014",
+    applicantName: "Tummala Krishnarjun Reddy",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9246268419",
+    district: "YADADRI BHUVANAGIRI",
+    coordinates: { lat: 17.3764688, lng: 79.0216021 },
+  },
+  {
+    id: 172,
+    applicantNumber: "NLM202110290000008",
+    applicantName: "Mekala Sai Kiran Reddy",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9989315013",
+    district: "YADADRI BHUVANAGIRI",
+    coordinates: { lat: 17.6265933, lng: 79.0056984 },
+  },
+  {
+    id: 173,
+    applicantNumber: "NLM202110210000028",
+    applicantName: "ANAGANDULA  SATHANNA",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9849471161",
+    district: "NIRMAL",
+    coordinates: { lat: 19.0820341, lng: 78.8513748 },
+  },
+  {
+    id: 174,
+    applicantNumber: "NLM202312050000175",
+    applicantName: "Komire Ravi",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "9515474971",
+    district: "YADADRI BHUVANAGIRI",
+    coordinates: { lat: 17.5247017, lng: 79.1430517 },
+  },
+  {
+    id: 175,
+    applicantNumber: "NLM202110280000048",
+    applicantName: "PARNE MALLA REDDY",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9848055588",
+    district: "YADADRI BHUVANAGIRI",
+    coordinates: { lat: 17.3335724, lng: 78.8051678 },
+  },
+  {
+    id: 176,
+    applicantNumber: "NLM202201070000087",
+    applicantName: "MARLA ANIL KUMAR REDDY",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9959448883",
+    district: "NALGONDA",
+    coordinates: { lat: 16.82804, lng: 79.45322 },
+  },
+  {
+    id: 177,
+    applicantNumber: "NLM202204160000010",
+    applicantName: "ANUMULA RAMREDDY",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9440354113",
+    district: "KHAMMAM",
+    coordinates: { lat: 17.2472528, lng: 80.1514447 },
+  },
+  {
+    id: 178,
+    applicantNumber: "NLM202304240000108",
+    applicantName: "B PAVANI",
+    type: "NLM",
+    category: "OBC",
+    mobileNumber: "8919938366",
+    district: "YADADRI BHUVANAGIRI",
+    coordinates: { lat: 17.682185, lng: 78.9647 },
+  },
+  {
+    id: 179,
+    applicantNumber: "NLM202110270000031",
+    applicantName: "Dandu Pulla Reddy",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9440901497",
+    district: "YADADRI BHUVANAGIRI",
+    coordinates: { lat: 17.066759, lng: 78.8904526 },
+  },
+  {
+    id: 180,
+    applicantNumber: "NLM202208260000006",
+    applicantName: "YEDULLA ANJI REDDY",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9948255544",
+    district: "NALGONDA",
+    coordinates: { lat: 17.1240999, lng: 79.211982 },
+  },
+  {
+    id: 181,
+    applicantNumber: "NLM202303170000137",
+    applicantName: "Theerthala Chidambar Rao",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "7702577877",
+    district: "KHAMMAM",
+    coordinates: { lat: 17.3989915, lng: 80.2537696 },
+  },
+  {
+    id: 182,
+    applicantNumber: "NLM202110270000054",
+    applicantName: "TATIPELLI AMULYA",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9502655687",
+    district: "ADILABAD",
+    coordinates: { lat: 19.7661296, lng: 78.505158 },
+  },
+  {
+    id: 183,
+    applicantNumber: "NLM202110290000038",
+    applicantName: "CHAVA CHANDRA SHEKHAR",
+    type: "NLM",
+    category: "General",
+    mobileNumber: "9448028642",
+    district: "BHADRADRI KOTHAGUDEM",
+    coordinates: { lat: 17.4727693, lng: 80.6103154 },
+  },
+].filter(loc => loc.coordinates && loc.coordinates.lat && loc.coordinates.lng)
 
 // ---------- Component ----------
 const InstitutionProfile = () => {
@@ -1488,13 +3320,14 @@ const InstitutionProfile = () => {
     PVC: "#84CC16",
     SCAH: "#3B82F6",
     SC_AH: "#3B82F6", // alias
+    NLM: "#cf88cc",
     OTHER: "#94A3B8",
   }
 
   // Compute counts for legend
   const institutionTypeCounts = useMemo(() => {
     const counts = {}
-    institutionData.forEach((loc) => {
+    institutionData.forEach(loc => {
       const type = loc.type || "OTHER"
       counts[type] = (counts[type] || 0) + 1
     })
@@ -1505,12 +3338,12 @@ const InstitutionProfile = () => {
     }))
   }, [])
 
-  const getMarkerColor = useCallback((type) => {
+  const getMarkerColor = useCallback(type => {
     if (!type) return institutionTypeColors.OTHER
     return institutionTypeColors[type] || institutionTypeColors.OTHER
   }, [])
 
-  const createGoogleStylePin = useCallback((color) => {
+  const createGoogleStylePin = useCallback(color => {
     const svg = `
       <svg xmlns="http://www.w3.org/2000/svg" width="28" height="42" viewBox="0 0 24 40">
         <path d="M12 0C5.4 0 0 5.4 0 12c0 6.6 12 28 12 28s12-21.4 12-28c0-6.6-5.4-12-12-12z" 
@@ -1527,7 +3360,7 @@ const InstitutionProfile = () => {
     }
   }, [])
 
-  const handleMarkerClick = useCallback((location) => {
+  const handleMarkerClick = useCallback(location => {
     setSelectedLocation(location)
   }, [])
 
@@ -1553,11 +3386,11 @@ const InstitutionProfile = () => {
                         transition: "all 0.2s ease",
                         cursor: "default",
                       }}
-                      onMouseEnter={(e) => {
+                      onMouseEnter={e => {
                         e.currentTarget.style.backgroundColor = `${item.color}20`
                         e.currentTarget.style.transform = "translateX(4px)"
                       }}
-                      onMouseLeave={(e) => {
+                      onMouseLeave={e => {
                         e.currentTarget.style.backgroundColor = `${item.color}10`
                         e.currentTarget.style.transform = "translateX(0)"
                       }}
@@ -1613,10 +3446,12 @@ const InstitutionProfile = () => {
                   fullscreenControl: true,
                   zoomControl: true,
                   mapTypeControlOptions: {
-                    position: window.google.maps?.ControlPosition?.TOP_RIGHT || 3,
+                    position:
+                      window.google.maps?.ControlPosition?.TOP_RIGHT || 3,
                   },
                   zoomControlOptions: {
-                    position: window.google.maps?.ControlPosition?.RIGHT_CENTER || 5,
+                    position:
+                      window.google.maps?.ControlPosition?.RIGHT_CENTER || 5,
                   },
                   styles: [
                     {
@@ -1637,7 +3472,7 @@ const InstitutionProfile = () => {
                   ],
                 }}
               >
-                {institutionData.map((location) => {
+                {institutionData.map(location => {
                   const markerColor = getMarkerColor(location.type)
                   const markerIcon = createGoogleStylePin(markerColor)
 
@@ -1650,7 +3485,7 @@ const InstitutionProfile = () => {
                       onClick={() => handleMarkerClick(location)}
                       animation={
                         selectedLocation?.id === location.id &&
-                          window.google.maps?.Animation?.BOUNCE
+                        window.google.maps?.Animation?.BOUNCE
                           ? window.google.maps.Animation.BOUNCE
                           : null
                       }
@@ -1721,35 +3556,92 @@ const InstitutionProfile = () => {
                       </div>
 
                       <div style={{ fontSize: "13px", color: "#475569" }}>
+                        {selectedLocation.category && (
+                          <div className="d-flex align-items-center mb-2">
+                            <i
+                              className="bx bx-layer bx-xs me-2"
+                              style={{ color: "#64748b" }}
+                            ></i>
+                            <span>
+                              <strong>Category:</strong>{" "}
+                              {selectedLocation.category}
+                            </span>
+                          </div>
+                        )}
+
+                        {selectedLocation.applicantNumber && (
+                          <div className="d-flex align-items-center mb-2">
+                            <i
+                              className="bx bx-id-card bx-xs me-2"
+                              style={{ color: "#64748b" }}
+                            ></i>
+                            <span>
+                              <strong>Applicant No:</strong>{" "}
+                              {selectedLocation.applicantNumber}
+                            </span>
+                          </div>
+                        )}
+
+                        {selectedLocation.applicantName && (
+                          <div className="d-flex align-items-center mb-2">
+                            <i
+                              className="bx bx-user bx-xs me-2"
+                              style={{ color: "#64748b" }}
+                            ></i>
+                            <span>
+                              <strong>Applicant:</strong>{" "}
+                              {selectedLocation.applicantName}
+                            </span>
+                          </div>
+                        )}
+
+                        {selectedLocation.mobileNumber && (
+                          <div className="d-flex align-items-center mb-2">
+                            <i
+                              className="bx bx-phone bx-xs me-2"
+                              style={{ color: "#64748b" }}
+                            ></i>
+                            <span>
+                              <strong>Mobile:</strong>{" "}
+                              {selectedLocation.mobileNumber}
+                            </span>
+                          </div>
+                        )}
+
                         <div className="d-flex align-items-center mb-2">
                           <i
                             className="bx bx-map bx-xs me-2"
                             style={{ color: "#64748b" }}
                           ></i>
                           <span>
-                            <strong>District:</strong> {selectedLocation.district}
+                            <strong>District:</strong>{" "}
+                            {selectedLocation.district}
                           </span>
                         </div>
 
-                        <div className="d-flex align-items-center mb-2">
-                          <i
-                            className="bx bx-buildings bx-xs me-2"
-                            style={{ color: "#64748b" }}
-                          ></i>
-                          <span>
-                            <strong>Mandal:</strong> {selectedLocation.mandal}
-                          </span>
-                        </div>
+                        {selectedLocation.mandal && (
+                          <div className="d-flex align-items-center mb-2">
+                            <i
+                              className="bx bx-buildings bx-xs me-2"
+                              style={{ color: "#64748b" }}
+                            ></i>
+                            <span>
+                              <strong>Mandal:</strong> {selectedLocation.mandal}
+                            </span>
+                          </div>
+                        )}
 
-                        <div className="mb-2">
-                          <i
-                            className="bx bx-file bx-xs me-2"
-                            style={{ color: "#64748b" }}
-                          ></i>
-                          <span>
-                            <strong>Land:</strong> {selectedLocation.landArea}
-                          </span>
-                        </div>
+                        {selectedLocation.landArea && (
+                          <div className="mb-2">
+                            <i
+                              className="bx bx-file bx-xs me-2"
+                              style={{ color: "#64748b" }}
+                            ></i>
+                            <span>
+                              <strong>Land:</strong> {selectedLocation.landArea}
+                            </span>
+                          </div>
+                        )}
 
                         {selectedLocation.remarks && (
                           <div className="mb-2">
@@ -1826,7 +3718,8 @@ const InstitutionProfile = () => {
             {/* Footer note – total count */}
             <div className="mt-3 text-muted small text-end">
               <i className="bx bx-map me-1"></i>
-              Showing {institutionData.length} veterinary institutions within ORR limits
+              Showing {institutionData.length} veterinary institutions within
+              ORR limits
             </div>
           </CardBody>
         </Card>
@@ -1836,18 +3729,3 @@ const InstitutionProfile = () => {
 }
 
 export default InstitutionProfile
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
