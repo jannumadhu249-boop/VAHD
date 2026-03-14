@@ -532,10 +532,10 @@
 
 // export default PlaceOfWorking
 
-import React, { useState, useMemo, useCallback } from "react"
+import React, { useState, useMemo, useCallback, useEffect } from "react"
 import { GoogleMap, Marker, InfoWindow } from "@react-google-maps/api"
 import { Row, Col, Card, CardBody, Badge } from "reactstrap"
-// import { type } from "@testing-library/user-event/dist/types/utility"
+import { size } from "lodash"
 
 // ---------- Static Dataset ----------
 const institutionData = [
@@ -3292,11 +3292,14 @@ const institutionData = [
     district: "BHADRADRI KOTHAGUDEM",
     coordinates: { lat: 17.4727693, lng: 80.6103154 },
   },
+  
 ].filter(loc => loc.coordinates && loc.coordinates.lat && loc.coordinates.lng)
 
 // ---------- Component ----------
 const InstitutionProfile = () => {
   const [selectedLocation, setSelectedLocation] = useState(null)
+  const [showOnlyNLM, setShowOnlyNLM] = useState(false) // new state
+  const [selectedType, setSelectedType] = useState(null)
 
   const mapContainerStyle = {
     width: "100%",
@@ -3324,7 +3327,7 @@ const InstitutionProfile = () => {
     OTHER: "#94A3B8",
   }
 
-  // Compute counts for legend
+  // Compute counts for legend (including NLM)
   const institutionTypeCounts = useMemo(() => {
     const counts = {}
     institutionData.forEach(loc => {
@@ -3337,6 +3340,38 @@ const InstitutionProfile = () => {
       color: institutionTypeColors[type] || institutionTypeColors.OTHER,
     }))
   }, [])
+
+  // Filtered data based on showOnlyNLM
+  // const filteredData = useMemo(() => {
+  //   if (showOnlyNLM) {
+  //     return institutionData.filter(loc => loc.type === "NLM")
+  //   } else {
+  //     return institutionData.filter(loc => loc.type !== "NLM")
+  //   }
+  // }, [showOnlyNLM])
+
+  const filteredData = useMemo(() => {
+    if (showOnlyNLM) {
+      return institutionData.filter(loc => loc.type === "NLM")
+    } else {
+      if (selectedType) {
+        return institutionData.filter(loc => loc.type === selectedType)
+      } else {
+        const allowedTypes = ['SSVH', 'PVC', 'AVH', 'DVH', 'SCAH']
+        return institutionData.filter(loc => allowedTypes.includes(loc.type))
+      }
+    }
+  }, [showOnlyNLM, selectedType])
+
+  // Clear selected location when it is no longer in filtered data
+  useEffect(() => {
+    if (
+      selectedLocation &&
+      !filteredData.some(loc => loc.id === selectedLocation.id)
+    ) {
+      setSelectedLocation(null)
+    }
+  }, [filteredData, selectedLocation])
 
   const getMarkerColor = useCallback(type => {
     if (!type) return institutionTypeColors.OTHER
@@ -3368,69 +3403,134 @@ const InstitutionProfile = () => {
     setSelectedLocation(null)
   }, [])
 
+  // Toggle NLM filter
+  // const toggleNLM = useCallback(() => {
+  //   setShowOnlyNLM(prev => !prev)
+  // }, [])
+
+
+  const handleCardClick = useCallback((type) => {
+    if (type === 'NLM') {
+      setShowOnlyNLM(prev => !prev)
+      setSelectedType(null)
+    } else {
+      setShowOnlyNLM(false)
+      setSelectedType(prev => prev === type ? null : type) 
+    }
+  }, [])
+
   return (
     <Row>
       <Col md={12}>
         <Card className="shadow-sm border-0">
           <CardBody className="p-2">
-            {/* Legend */}
+            {/* Legend – make the NLM card clickable */}
             <div className="mb-2">
               <div className="row g-2">
-                {institutionTypeCounts.map((item, index) => (
-                  <div key={index} className="col-1 col-md-1 col-lg-1 col-xl-1">
-                    <div
-                      className="d-flex align-items-center p-2 rounded"
-                      style={{
-                        backgroundColor: `${item.color}10`,
-                        borderLeft: `4px solid ${item.color}`,
-                        transition: "all 0.2s ease",
-                        cursor: "default",
-                      }}
-                      onMouseEnter={e => {
-                        e.currentTarget.style.backgroundColor = `${item.color}20`
-                        e.currentTarget.style.transform = "translateX(4px)"
-                      }}
-                      onMouseLeave={e => {
-                        e.currentTarget.style.backgroundColor = `${item.color}10`
-                        e.currentTarget.style.transform = "translateX(0)"
-                      }}
-                    >
-                      <div
-                        className="me-2 rounded-circle"
+                {institutionTypeCounts.map((item, index) => {
+                  const isFiveType = ['SSVH', 'PVC', 'AVH', 'DVH', 'SCAH'].includes(item.type)
+                  const isNLM = item.type === "NLM"
+                  const isClickable = isFiveType || isNLM
+
+                  const isActive = (isNLM && showOnlyNLM) || 
+                  (isFiveType && !showOnlyNLM && selectedType === item.type)
+
+                  return (
+                    <div key={index} className="col-1 col-md-1 col-lg-1 col-xl-1">
+                      {/* <div
+                        className="d-flex align-items-center p-2 rounded"
                         style={{
-                          width: "12px",
-                          height: "12px",
-                          backgroundColor: item.color,
-                          minWidth: "12px",
+                          backgroundColor: isNLM
+                            ? showOnlyNLM
+                              ? `${item.color}30`
+                              : `${item.color}10`
+                            : `${item.color}10`,
+                          borderLeft: `4px solid ${item.color}`,
+                          transition: "all 0.2s ease",
+                          cursor: isNLM ? "pointer" : "default",
+                          opacity: isNLM && showOnlyNLM ? 1 : 0.9,
                         }}
-                      ></div>
-                      <div
-                        className="d-flex flex-column"
-                        style={{ lineHeight: "1.2" }}
+                        onMouseEnter={e => {
+                          e.currentTarget.style.backgroundColor = isNLM
+                            ? showOnlyNLM
+                              ? `${item.color}40`
+                              : `${item.color}20`
+                            : `${item.color}20`
+                          if (isNLM) e.currentTarget.style.transform = "translateX(4px)"
+                        }}
+                        onMouseLeave={e => {
+                          e.currentTarget.style.backgroundColor = isNLM
+                            ? showOnlyNLM
+                              ? `${item.color}30`
+                              : `${item.color}10`
+                            : `${item.color}10`
+                          if (isNLM) e.currentTarget.style.transform = "translateX(0)"
+                        }}
+                        onClick={isNLM ? toggleNLM : undefined}
+                      > */}
+
+                          <div
+                        className="d-flex align-items-center p-2 rounded"
+                        style={{
+                          backgroundColor: isActive
+                            ? `${item.color}30`
+                            : `${item.color}10`,
+                          borderLeft: `4px solid ${item.color}`,
+                          transition: "all 0.2s ease",
+                          cursor: isClickable ? "pointer" : "default",
+                          opacity: isActive ? 1 : 0.9,
+                        }}
+                        onMouseEnter={e => {
+                          e.currentTarget.style.backgroundColor = isActive
+                            ? `${item.color}40`
+                            : `${item.color}20`
+                          if (isClickable) e.currentTarget.style.transform = "translateX(4px)"
+                        }}
+                        onMouseLeave={e => {
+                          e.currentTarget.style.backgroundColor = isActive
+                            ? `${item.color}30`
+                            : `${item.color}10`
+                          if (isClickable) e.currentTarget.style.transform = "translateX(0)"
+                        }}
+                        onClick={isClickable ? () => handleCardClick(item.type) : undefined}
                       >
-                        <span
-                          className="fw-medium"
+                        <div
+                          className="me-2 rounded-circle"
                           style={{
-                            fontSize: "12px",
-                            color: "#1e293b",
-                            whiteSpace: "nowrap",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
+                            width: "12px",
+                            height: "12px",
+                            backgroundColor: item.color,
+                            minWidth: "12px",
                           }}
+                        ></div>
+                        <div
+                          className="d-flex flex-column"
+                          style={{ lineHeight: "1.2" }}
                         >
-                          {item.type}
-                        </span>
-                        <span
-                          className="text-muted"
-                          style={{ fontSize: "11px" }}
-                        >
-                          {item.count}{" "}
-                          {item.count === 1 ? "location" : "locations"}
-                        </span>
+                          <span
+                            className="fw-medium"
+                            style={{
+                              fontSize: "12px",
+                              color: "#1e293b",
+                              whiteSpace: "nowrap",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                            }}
+                          >
+                            {item.type}
+                          </span>
+                          <span
+                            className="text-muted"
+                            style={{ fontSize: "11px" }}
+                          >
+                            {item.count}{" "}
+                            {item.count === 1 ? "location" : "locations"}
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  )
+                })}
               </div>
             </div>
 
@@ -3472,7 +3572,7 @@ const InstitutionProfile = () => {
                   ],
                 }}
               >
-                {institutionData.map(location => {
+                {filteredData.map(location => {
                   const markerColor = getMarkerColor(location.type)
                   const markerIcon = createGoogleStylePin(markerColor)
 
@@ -3481,7 +3581,7 @@ const InstitutionProfile = () => {
                       key={location.id}
                       position={location.coordinates}
                       icon={markerIcon}
-                      title={`${location.name} - ${location.type}`}
+                      title={`${location.name || location.applicantName} - ${location.type}`}
                       onClick={() => handleMarkerClick(location)}
                       animation={
                         selectedLocation?.id === location.id &&
@@ -3519,7 +3619,7 @@ const InstitutionProfile = () => {
                             flex: 1,
                           }}
                         >
-                          {selectedLocation.name}
+                          {selectedLocation.name || selectedLocation.applicantName}
                         </h6>
                         <button
                           onClick={handleCloseInfoWindow}
@@ -3715,11 +3815,14 @@ const InstitutionProfile = () => {
               </GoogleMap>
             </div>
 
-            {/* Footer note – total count */}
+            {/* Footer note – dynamic based on filter */}
             <div className="mt-3 text-muted small text-end">
               <i className="bx bx-map me-1"></i>
-              Showing {institutionData.length} veterinary institutions within
-              ORR limits
+              {showOnlyNLM
+                ? `Showing ${filteredData.length} NLM location${filteredData.length === 1 ? "" : "s"}`
+                : selectedType
+                ? `Showing ${filteredData.length} ${selectedType} location${filteredData.length === 1 ? "" : "s"}`
+                : `Showing ${filteredData.length} veterinary institutions ( SSVH, AVH, DVH, PVC, SCAH )`}
             </div>
           </CardBody>
         </Card>

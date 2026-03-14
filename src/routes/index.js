@@ -127,6 +127,7 @@ import FodderDistributionDistrict from "pages/PatientRegistration/FodderDistribu
 import DetailAttendanceReportWithTime from "pages/EmployeeRegistation/DetailAttendanceReportWithTime"
 import DistrictWiseAttendanceCountWithTime from "pages/EmployeeRegistation/DistrictWiseAttendanceCountWithTime"
 import DetailEmployeeAttendanceReport from "pages/EmployeeRegistation/DetailEmployeeAttendanceReport"
+import { padEnd } from "lodash"
 
 const authProtectedRoutes = [
   //Dashboard
